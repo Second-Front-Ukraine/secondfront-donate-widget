@@ -89,7 +89,7 @@ function Widget(props: WidgetProps) {
             <p>Collected to date <strong>${campaignData.collected / 100}</strong></p>
             {tab ? tab.paid ? (
                 <div>
-                    <p>Thank you for supporting Ukrainians! <br />💙&nbsp;💛 <br /><a href="#" onClick={handleDonationCancel}>Click here to make another contribution</a></p>
+                    <p>Thank you for supporting Ukraine! <br />💙&nbsp;💛 <br /><a href="#" onClick={handleDonationCancel}>Click here to make another contribution</a></p>
                 </div>
             ) : (
                 <div>

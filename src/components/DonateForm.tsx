@@ -122,9 +122,9 @@ function DonateForm(props: DonateFormProps) {
                         <div className="icon-override wv-icon--payment-method--small wv-icon--payment-method--cc-amex"></div>
                         <div className="icon-override wv-icon--payment-method--small wv-icon--payment-method--cc-mastercard"></div>
                         <div className="icon-override wv-icon--payment-method--small wv-icon--payment-method--cc-visa"></div>
-                        <div className='sfua-donate-form__submit-alt'>
-                            <input type="submit" value="Donate" />
-                        </div>
+                    </div>
+                    <div className='sfua-donate-form__submit-alt'>
+                        <input type="submit" value="Donate" />
                     </div>
                 </div>
             </form>
