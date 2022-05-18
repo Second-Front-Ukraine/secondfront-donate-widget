@@ -29,10 +29,34 @@ function DonateForm(props: DonateFormProps) {
         })
     }
 
+    const handleAddIdentity = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        setAddIdentity(true);
+    }
+
+    const handleAddNote = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        setAddNote(true);
+    }
+
+    const amountOptions = [25.00, null, 50.00, null, 100].map(amount => {
+        if (!amount) {
+            return ' | '
+        }
+        const onClickHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
+            e.preventDefault();
+            setAmount(amount.toString());
+        }
+        return (
+            <a href="#" onClick={onClickHandler}>${amount.toLocaleString('en-CA')}</a>
+        )
+    });
+
+
     return (
         <div className="2fua-donate-form">
             <div className='sfua-donate-form__amount-select'>
-                <span><a href="#" onClick={() => setAmount("25.00")}>$25</a> | <a href="#" onClick={() => setAmount("50.00")}>$50</a> | <a href="#" onClick={() => setAmount("100.00")}>$100</a></span>
+                <span>{amountOptions}</span>
             </div>
             <form onSubmit={handleSubmit}>
                 <div className="sfua-donate-form__input-box">
@@ -49,11 +73,11 @@ function DonateForm(props: DonateFormProps) {
                 {!addIdentity || !addNote ? (
                     <div className='sfua-donate-form__add'>
                         {!addIdentity ? (
-                            <a href="#" onClick={() => setAddIdentity(true)}>Include email to receive updates</a>
+                            <a href="#" onClick={handleAddIdentity}>Include email to receive updates</a>
                         ) : null}
                         {addIdentity === addNote ? (" | ") : null}
                         {!addNote ? (
-                            <a href="#" onClick={() => setAddNote(true)}>Add a note</a>
+                            <a href="#" onClick={handleAddNote}>Add a note</a>
                         ) : null}
                     </div>
                 ) : null}
