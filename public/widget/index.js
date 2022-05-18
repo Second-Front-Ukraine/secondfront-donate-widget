@@ -5531,35 +5531,41 @@ function DonateForm(props) {
     });
   };
 
+  var handleAddIdentity = function handleAddIdentity(e) {
+    e.preventDefault();
+    setAddIdentity(true);
+  };
+
+  var handleAddNote = function handleAddNote(e) {
+    e.preventDefault();
+    setAddNote(true);
+  };
+
+  var amountOptions = [25.00, null, 50.00, null, 100].map(function (amount) {
+    if (!amount) {
+      return ' | ';
+    }
+
+    var onClickHandler = function onClickHandler(e) {
+      e.preventDefault();
+      setAmount(amount.toString());
+    };
+
+    return (0, _jsxRuntime.jsxs)("a", __assign({
+      href: "#",
+      onClick: onClickHandler
+    }, {
+      children: ["$", amount.toLocaleString('en-CA')]
+    }));
+  });
   return (0, _jsxRuntime.jsxs)("div", __assign({
     className: "2fua-donate-form"
   }, {
     children: [(0, _jsxRuntime.jsx)("div", __assign({
       className: 'sfua-donate-form__amount-select'
     }, {
-      children: (0, _jsxRuntime.jsxs)("span", {
-        children: [(0, _jsxRuntime.jsx)("a", __assign({
-          href: "#",
-          onClick: function onClick() {
-            return setAmount("25.00");
-          }
-        }, {
-          children: "$25"
-        })), " | ", (0, _jsxRuntime.jsx)("a", __assign({
-          href: "#",
-          onClick: function onClick() {
-            return setAmount("50.00");
-          }
-        }, {
-          children: "$50"
-        })), " | ", (0, _jsxRuntime.jsx)("a", __assign({
-          href: "#",
-          onClick: function onClick() {
-            return setAmount("100.00");
-          }
-        }, {
-          children: "$100"
-        }))]
+      children: (0, _jsxRuntime.jsx)("span", {
+        children: amountOptions
       })
     })), (0, _jsxRuntime.jsxs)("form", __assign({
       onSubmit: handleSubmit
@@ -5586,16 +5592,12 @@ function DonateForm(props) {
       }, {
         children: [!addIdentity ? (0, _jsxRuntime.jsx)("a", __assign({
           href: "#",
-          onClick: function onClick() {
-            return setAddIdentity(true);
-          }
+          onClick: handleAddIdentity
         }, {
           children: "Include email to receive updates"
         })) : null, addIdentity === addNote ? " | " : null, !addNote ? (0, _jsxRuntime.jsx)("a", __assign({
           href: "#",
-          onClick: function onClick() {
-            return setAddNote(true);
-          }
+          onClick: handleAddNote
         }, {
           children: "Add a note"
         })) : null]
@@ -5747,7 +5749,8 @@ function Widget(props) {
     pollForPayment(tab);
   };
 
-  var onDonationCancel = function onDonationCancel() {
+  var handleDonationCancel = function handleDonationCancel(e) {
+    e.preventDefault();
     setTab(undefined);
     breakPoll.current = true;
   };
@@ -5770,6 +5773,15 @@ function Widget(props) {
       pollForPayment(parsedTab);
     }
   }, []);
+
+  var handleClickDonation = function handleClickDonation(e) {
+    e.preventDefault();
+
+    if (tab) {
+      openPaymentForm(tab);
+    }
+  };
+
   return (0, _jsxRuntime.jsxs)("div", __assign({
     className: "sfua-widget"
   }, {
@@ -5781,7 +5793,7 @@ function Widget(props) {
       children: (0, _jsxRuntime.jsxs)("p", {
         children: ["Thank you for supporting Ukrainians! ", (0, _jsxRuntime.jsx)("br", {}), "\uD83D\uDC99\xA0\uD83D\uDC9B ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
           href: "#",
-          onClick: onDonationCancel
+          onClick: handleDonationCancel
         }, {
           children: "Click here to make another contribution"
         }))]
@@ -5790,14 +5802,12 @@ function Widget(props) {
       children: (0, _jsxRuntime.jsxs)("p", {
         children: ["Processing ", (0, _jsxRuntime.jsx)("a", __assign({
           href: "#",
-          onClick: function onClick() {
-            return openPaymentForm(tab);
-          }
+          onClick: handleClickDonation
         }, {
           children: "your donation"
         })), " in another window. ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
           href: "#",
-          onClick: onDonationCancel
+          onClick: handleDonationCancel
         }, {
           children: "Click here to cancel"
         })), "."]
