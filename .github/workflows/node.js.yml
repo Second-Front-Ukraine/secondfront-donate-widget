@@ -4,33 +4,32 @@
 name: Node.js CD
 
 on:
-  push:
-    branches: [ cd-action ]
-  pull_request:
-    branches: [ cd-action ]
+    push:
+        branches: [cd-action]
+    pull_request:
+        branches: [cd-action]
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [12.x]
+                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build
-    - run: npm run build:widget
-    - run: |
-           cat <<EOF > cd |
-           ${{ secrets.SERVER_SSH_KEY }} |
-           EOF
-    - run: scp -prq -i cd cd@${{ secrets.SERVER_IP }}:/public/* ./public 
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
+            - run: npm ci
+            - run: npm run build:widget
+            - run: npm run build
+            - run: |
+                  cat <<EOF > cd |
+                  ${{ secrets.SERVER_SSH_KEY }} |
+                  EOF
+            - run: scp -prq -i cd cd@${{ secrets.SERVER_IP }}:/public/* ./public
