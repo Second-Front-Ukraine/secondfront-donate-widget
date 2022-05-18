@@ -5719,7 +5719,7 @@ function Widget(props) {
 
   var openPaymentForm = function openPaymentForm() {
     if (tab) {
-      window.open(tab.url, "", "width=1024, height=768");
+      window.open(tab.url, '', 'width=1024, height=768');
     }
   };
 
@@ -5746,24 +5746,22 @@ function Widget(props) {
     if (items) {
       setTab(JSON.parse(items));
     }
-  }, []);
+  }, [props.campaign]);
   return (0, _jsxRuntime.jsx)("div", __assign({
     className: "sfua-widget"
   }, {
     children: tab ? (0, _jsxRuntime.jsxs)("div", {
-      children: ["Processing ", (0, _jsxRuntime.jsx)("a", __assign({
-        href: "#",
+      children: ["Processing", ' ', (0, _jsxRuntime.jsx)("button", __assign({
         onClick: openPaymentForm
       }, {
         children: "your donation"
-      })), " in another window. ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
-        href: "#",
+      })), " in another window. ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("button", __assign({
         onClick: onDonationCancel
       }, {
         children: "Click here to cancel"
       })), "."]
     }) : (0, _jsxRuntime.jsxs)("div", {
-      children: ["Collected to date ", (0, _jsxRuntime.jsxs)("strong", {
+      children: ["Collected to date", ' ', (0, _jsxRuntime.jsxs)("strong", {
         children: ["$", campaignData.collected / 100]
       }), (0, _jsxRuntime.jsx)(_DonateForm.default, {
         campaign: props.campaign,
@@ -5784,8 +5782,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _jsxRuntime = require("react/jsx-runtime");
-
-var _react = _interopRequireDefault(require("react"));
 
 require("./App.css");
 
@@ -5821,7 +5817,7 @@ function App(props) {
 
 var _default = App;
 exports.default = _default;
-},{"react/jsx-runtime":"plwR","react":"n8MK","./App.css":"vKFU","./components/Widget":"wQMV"}],"FheM":[function(require,module,exports) {
+},{"react/jsx-runtime":"plwR","./App.css":"vKFU","./components/Widget":"wQMV"}],"FheM":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
