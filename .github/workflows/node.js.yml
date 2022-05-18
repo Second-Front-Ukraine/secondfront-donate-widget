@@ -35,5 +35,4 @@ jobs:
             - run: npm ci
             - run: npm run build
             - run: npm run build:widget
-            - run: echo "${{ secrets.SERVER_SSH_KEY }}" > github_actions
             - run: rsync --delete -avr ./build/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:~/public/
