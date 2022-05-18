@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import internal from 'stream';
 import DonateForm from './DonateForm';
 import { wave } from '../axiosInstances';
@@ -14,7 +14,8 @@ interface Campaign {
 
 interface Tab {
     url: string,
-    tabId: string,
+    tab_id: string,
+    paid: boolean,
 }
 
 function Widget(props: WidgetProps) {
@@ -23,45 +24,72 @@ function Widget(props: WidgetProps) {
         collected: 0
     } as Campaign);
     const [tab, setTab] = useState(undefined as Tab | undefined);
+    const breakPoll = useRef(false);
 
-    const openPaymentForm = () => {
-        if (tab) {
-            window.open(tab.url, "", "width=1024, height=768");
-        }
+    const openPaymentForm = (tabToOpen: Tab) => {
+        window.open(tabToOpen.url, "", "width=1024, height=768");
+    }
+
+    const pollForPayment = (tabAsArgument?: Tab, counter = 1) => {
+        wave.get(`/tab/${tabAsArgument?.tab_id}`).then(result => {
+            if (!result.data.paid && counter <= 120) {
+                if (!breakPoll.current) {
+                    setTimeout(() => pollForPayment(tabAsArgument, counter + 1), 5000);
+                } else {
+                    breakPoll.current = false;
+                }
+            } else {
+                setTab(result.data);
+                fetchCampaign();
+            }
+        });
     }
 
     const onTabCreated = (tab: Tab) => {
         setTab(tab);
         localStorage.setItem(`tab-in-progress-${props.campaign}`, JSON.stringify(tab));
-        openPaymentForm();
+        openPaymentForm(tab);
+        pollForPayment(tab);
     }
 
     const onDonationCancel = () => {
         setTab(undefined);
+        breakPoll.current = true;
+    }
+
+    const fetchCampaign = () => {
+        wave.get(`/campaign/${props.campaign}`).then((result) => {
+            setCampaignData(result.data.campaign);
+        });
     }
 
     useEffect(() => {
-
         // Load Campaign details
-        wave.get(`/campaign/${props.campaign}`).then((result) => {
-            console.log(result);
-            setCampaignData(result.data.campaign);
-        })
+        fetchCampaign();
 
         // Check local storage for existing donation Tab
         const items = localStorage.getItem(`tab-in-progress-${props.campaign}`);
         if (items) {
-            setTab(JSON.parse(items));
+            const parsedTab: Tab = JSON.parse(items)
+            setTab(parsedTab);
+            pollForPayment(parsedTab);
         }
     }, [])
 
     return (
         <div className="sfua-widget">
-            {tab ? (
-                <div>Processing <a href="#" onClick={openPaymentForm}>your donation</a> in another window. <br /><a href="#" onClick={onDonationCancel}>Click here to cancel</a>.</div>
+            <p>Collected to date <strong>${campaignData.collected / 100}</strong></p>
+            {tab ? tab.paid ? (
+                <div>
+                    <p>Thank you for supporting Ukrainians! <br />💙&nbsp;💛 <br /><a href="#" onClick={onDonationCancel}>Click here to make another contribution</a></p>
+                </div>
             ) : (
                 <div>
-                    Collected to date <strong>${campaignData.collected / 100}</strong>
+                    <p>Processing <a href="#" onClick={() => openPaymentForm(tab)}>your donation</a> in another window. <br /><a href="#" onClick={onDonationCancel}>Click here to cancel</a>.
+                    </p>
+                </div>
+            ) : (
+                <div>
                     <DonateForm campaign={props.campaign} onTabCreated={onTabCreated} />
                 </div>
             )}

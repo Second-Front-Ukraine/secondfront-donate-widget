@@ -25,11 +25,7 @@ function DonateForm(props: DonateFormProps) {
             comment: memo,
         };
         wave.post("/tab", inputData).then((result) => {
-            console.log(result.data);
-            props.onTabCreated({
-                tabId: result.data['tab_id'],
-                url: result.data['url'],
-            });
+            props.onTabCreated(result.data);
         })
     }
 
@@ -42,7 +38,7 @@ function DonateForm(props: DonateFormProps) {
                 <div className="sfua-donate-form__input-box">
                     <span className="sfua-donate-form__input-box__prefix">CAD</span>
                     <input
-                        type="text"
+                        type="number"
                         name="amount"
                         value={amount}
                         placeholder="Amount"
