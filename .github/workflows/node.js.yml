@@ -19,6 +19,13 @@ jobs:
                 # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
         steps:
+            - name: Install SSH Key
+              uses: shimataro/ssh-key-action@v2
+              with:
+                  key: ${{ secrets.SERVER_SSH_KEY }}
+                  known_hosts: 'placeholder'
+            - name: Adding Known Hosts
+              run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
             - uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v3
@@ -28,5 +35,5 @@ jobs:
             - run: npm ci
             - run: npm run build
             - run: npm run build:widget
-            - run: echo "${{ secrets.SERVER_SSH_KEY }}" > cd
-            - run: rsync --delete -are "ssh -i cd" ./build/ cd@178.128.224.100:~/public/
+            - run: echo "${{ secrets.SERVER_SSH_KEY }}" > ${{ github_actions }}
+            - run: rsync --delete -avre ./build/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:~/public/
