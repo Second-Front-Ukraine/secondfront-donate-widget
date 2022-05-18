@@ -52,7 +52,8 @@ function Widget(props: WidgetProps) {
         pollForPayment(tab);
     }
 
-    const onDonationCancel = () => {
+    const handleDonationCancel = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
         setTab(undefined);
         breakPoll.current = true;
     }
@@ -76,16 +77,23 @@ function Widget(props: WidgetProps) {
         }
     }, [])
 
+    const handleClickDonation = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        if (tab) {
+            openPaymentForm(tab);
+        }
+    }
+
     return (
         <div className="sfua-widget">
             <p>Collected to date <strong>${campaignData.collected / 100}</strong></p>
             {tab ? tab.paid ? (
                 <div>
-                    <p>Thank you for supporting Ukrainians! <br />💙&nbsp;💛 <br /><a href="#" onClick={onDonationCancel}>Click here to make another contribution</a></p>
+                    <p>Thank you for supporting Ukrainians! <br />💙&nbsp;💛 <br /><a href="#" onClick={handleDonationCancel}>Click here to make another contribution</a></p>
                 </div>
             ) : (
                 <div>
-                    <p>Processing <a href="#" onClick={() => openPaymentForm(tab)}>your donation</a> in another window. <br /><a href="#" onClick={onDonationCancel}>Click here to cancel</a>.
+                    <p>Processing <a href="#" onClick={handleClickDonation}>your donation</a> in another window. <br /><a href="#" onClick={handleDonationCancel}>Click here to cancel</a>.
                     </p>
                 </div>
             ) : (
