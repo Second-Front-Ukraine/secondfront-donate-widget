@@ -5527,11 +5527,7 @@ function DonateForm(props) {
     };
 
     _axiosInstances.wave.post("/tab", inputData).then(function (result) {
-      console.log(result.data);
-      props.onTabCreated({
-        tabId: result.data['tab_id'],
-        url: result.data['url']
-      });
+      props.onTabCreated(result.data);
     });
   };
 
@@ -5576,7 +5572,7 @@ function DonateForm(props) {
         }, {
           children: "CAD"
         })), (0, _jsxRuntime.jsx)("input", {
-          type: "text",
+          type: "number",
           name: "amount",
           value: amount,
           placeholder: "Amount",
@@ -5717,59 +5713,101 @@ function Widget(props) {
       tab = _b[0],
       setTab = _b[1];
 
-  var openPaymentForm = function openPaymentForm() {
-    if (tab) {
-      window.open(tab.url, "", "width=1024, height=768");
+  var breakPoll = (0, _react.useRef)(false);
+
+  var openPaymentForm = function openPaymentForm(tabToOpen) {
+    window.open(tabToOpen.url, "", "width=1024, height=768");
+  };
+
+  var pollForPayment = function pollForPayment(tabAsArgument, counter) {
+    if (counter === void 0) {
+      counter = 1;
     }
+
+    _axiosInstances.wave.get("/tab/".concat(tabAsArgument === null || tabAsArgument === void 0 ? void 0 : tabAsArgument.tab_id)).then(function (result) {
+      if (!result.data.paid && counter <= 120) {
+        if (!breakPoll.current) {
+          setTimeout(function () {
+            return pollForPayment(tabAsArgument, counter + 1);
+          }, 5000);
+        } else {
+          breakPoll.current = false;
+        }
+      } else {
+        setTab(result.data);
+        fetchCampaign();
+      }
+    });
   };
 
   var onTabCreated = function onTabCreated(tab) {
     setTab(tab);
     localStorage.setItem("tab-in-progress-".concat(props.campaign), JSON.stringify(tab));
-    openPaymentForm();
+    openPaymentForm(tab);
+    pollForPayment(tab);
   };
 
   var onDonationCancel = function onDonationCancel() {
     setTab(undefined);
+    breakPoll.current = true;
+  };
+
+  var fetchCampaign = function fetchCampaign() {
+    _axiosInstances.wave.get("/campaign/".concat(props.campaign)).then(function (result) {
+      setCampaignData(result.data.campaign);
+    });
   };
 
   (0, _react.useEffect)(function () {
     // Load Campaign details
-    _axiosInstances.wave.get("/campaign/".concat(props.campaign)).then(function (result) {
-      console.log(result);
-      setCampaignData(result.data.campaign);
-    }); // Check local storage for existing donation Tab
-
+    fetchCampaign(); // Check local storage for existing donation Tab
 
     var items = localStorage.getItem("tab-in-progress-".concat(props.campaign));
 
     if (items) {
-      setTab(JSON.parse(items));
+      var parsedTab = JSON.parse(items);
+      setTab(parsedTab);
+      pollForPayment(parsedTab);
     }
   }, []);
-  return (0, _jsxRuntime.jsx)("div", __assign({
+  return (0, _jsxRuntime.jsxs)("div", __assign({
     className: "sfua-widget"
   }, {
-    children: tab ? (0, _jsxRuntime.jsxs)("div", {
-      children: ["Processing ", (0, _jsxRuntime.jsx)("a", __assign({
-        href: "#",
-        onClick: openPaymentForm
-      }, {
-        children: "your donation"
-      })), " in another window. ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
-        href: "#",
-        onClick: onDonationCancel
-      }, {
-        children: "Click here to cancel"
-      })), "."]
-    }) : (0, _jsxRuntime.jsxs)("div", {
+    children: [(0, _jsxRuntime.jsxs)("p", {
       children: ["Collected to date ", (0, _jsxRuntime.jsxs)("strong", {
         children: ["$", campaignData.collected / 100]
-      }), (0, _jsxRuntime.jsx)(_DonateForm.default, {
+      })]
+    }), tab ? tab.paid ? (0, _jsxRuntime.jsx)("div", {
+      children: (0, _jsxRuntime.jsxs)("p", {
+        children: ["Thank you for supporting Ukrainians! ", (0, _jsxRuntime.jsx)("br", {}), "\uD83D\uDC99\xA0\uD83D\uDC9B ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
+          href: "#",
+          onClick: onDonationCancel
+        }, {
+          children: "Click here to make another contribution"
+        }))]
+      })
+    }) : (0, _jsxRuntime.jsx)("div", {
+      children: (0, _jsxRuntime.jsxs)("p", {
+        children: ["Processing ", (0, _jsxRuntime.jsx)("a", __assign({
+          href: "#",
+          onClick: function onClick() {
+            return openPaymentForm(tab);
+          }
+        }, {
+          children: "your donation"
+        })), " in another window. ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
+          href: "#",
+          onClick: onDonationCancel
+        }, {
+          children: "Click here to cancel"
+        })), "."]
+      })
+    }) : (0, _jsxRuntime.jsx)("div", {
+      children: (0, _jsxRuntime.jsx)(_DonateForm.default, {
         campaign: props.campaign,
         onTabCreated: onTabCreated
-      })]
-    })
+      })
+    })]
   }));
 }
 
