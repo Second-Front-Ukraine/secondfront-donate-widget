@@ -28,7 +28,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build:widget
-    - run: cat <<EOF > cd
-    - run: ${{ secrets.SERVER_SSH_KEY }}
-    - run: EOF
+    - run: cat <<EOF > cd |
+           ${{ secrets.SERVER_SSH_KEY }} |
+           EOF
     - run: scp -prq -i cd cd@${{ secrets.SERVER_IP }}:/public/* ./public 
