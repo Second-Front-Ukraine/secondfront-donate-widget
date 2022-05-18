@@ -28,5 +28,8 @@ jobs:
             - run: npm ci
             - run: npm run build
             - run: npm run build:widget
-            - run: ${{ secrets.SERVER_SSH_KEY }} > cd
+            - run: |
+              cat > cd |
+              ${{ secrets.SERVER_SSH_KEY }}
+              ^D
             - run: scp -prq -i cd cd@${{ secrets.SERVER_IP }}:/public/* ./public
