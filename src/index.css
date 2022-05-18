@@ -28,17 +28,26 @@
 .sfua-donate-form__input-box .sfua-donate-form__input-box__large {
   font-size: 25px;
   line-height: 32px;
-  font-weight: 700;
+  border: none;
+  /* vertical-align: middle; */
+  /* font-weight: 700; */
+}
+.sfua-donate-form__input-box .sfua-donate-form__input-box__large::placeholder {
+  /* font-size: 16px; */
+  /* line-height: 20px; */
+  /* margin-bottom: 15px; */
+  /* font-weight: 300; */
 }
 
 .sfua-donate-form__input-box input, textarea {
   flex-grow: 1;
   /* font-size: 14px; */
   background: #fff;
-  border: none;
+  border: none!important;
   outline: none;
   padding: 0.5rem;
-  width: 100%
+  width: 100%;
+  font-family: "Raleway", sans-serif;
 }
 
 .sfua-donate-form__input-box input::placeholder, textarea::placeholder {
@@ -72,7 +81,7 @@
   margin: auto;
 }
 
-.sfua-donate-form__submit-alt input {
+.sfua-donate-form__submit-alt input[type=submit] {
   background-color: #0d5fb5;
   color: white;
   /* margin-top: 10px; */
@@ -81,7 +90,9 @@
   border: 1px solid #0d5fb5;
   outline: none;
   /* margin: auto; */
-  margin-left: 15px;
+  /* margin-left: 15px; */
+  margin-top: 10px;
+  width: 100%;
   cursor: pointer;
 }
 
@@ -102,6 +113,7 @@
     padding: 8px 16px;
     align-items: center;
     display: flex;
+    justify-content: center;
     padding-bottom: 4px;
 }
 
