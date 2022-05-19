@@ -5453,7 +5453,7 @@ var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var wave = _axios.default.create({
-  baseURL: 'http://localhost:5001'
+  baseURL: 'https://secondfront-donate-app-nhyjb.ondigitalocean.app'
 });
 
 exports.wave = wave;
