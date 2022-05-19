@@ -5637,8 +5637,8 @@ function DonateForm(props) {
             return setMemo(e.target.value);
           }
         })
-      })) : null, (0, _jsxRuntime.jsx)("div", {
-        children: (0, _jsxRuntime.jsxs)("div", __assign({
+      })) : null, (0, _jsxRuntime.jsxs)("div", {
+        children: [(0, _jsxRuntime.jsxs)("div", __assign({
           className: "invoice-insights__payments-banner"
         }, {
           children: [(0, _jsxRuntime.jsx)("div", {
@@ -5649,15 +5649,15 @@ function DonateForm(props) {
             className: "icon-override wv-icon--payment-method--small wv-icon--payment-method--cc-mastercard"
           }), (0, _jsxRuntime.jsx)("div", {
             className: "icon-override wv-icon--payment-method--small wv-icon--payment-method--cc-visa"
-          }), (0, _jsxRuntime.jsx)("div", __assign({
-            className: 'sfua-donate-form__submit-alt'
-          }, {
-            children: (0, _jsxRuntime.jsx)("input", {
-              type: "submit",
-              value: "Donate"
-            })
-          }))]
-        }))
+          })]
+        })), (0, _jsxRuntime.jsx)("div", __assign({
+          className: 'sfua-donate-form__submit-alt'
+        }, {
+          children: (0, _jsxRuntime.jsx)("input", {
+            type: "submit",
+            value: "Donate"
+          })
+        }))]
       })]
     }))]
   }));
@@ -5791,7 +5791,7 @@ function Widget(props) {
       })]
     }), tab ? tab.paid ? (0, _jsxRuntime.jsx)("div", {
       children: (0, _jsxRuntime.jsxs)("p", {
-        children: ["Thank you for supporting Ukrainians! ", (0, _jsxRuntime.jsx)("br", {}), "\uD83D\uDC99\xA0\uD83D\uDC9B ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
+        children: ["Thank you for supporting Ukraine! ", (0, _jsxRuntime.jsx)("br", {}), "\uD83D\uDC99\xA0\uD83D\uDC9B ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
           href: "#",
           onClick: handleDonationCancel
         }, {
