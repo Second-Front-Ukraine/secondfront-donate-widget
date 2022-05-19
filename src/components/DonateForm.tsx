@@ -65,7 +65,6 @@ function DonateForm(props: DonateFormProps) {
                         type="number"
                         name="amount"
                         value={amount}
-                        placeholder="Amount"
                         className='sfua-donate-form__input-box__large'
                         onChange={(e) => setAmount(e.target.value)}
                     />
