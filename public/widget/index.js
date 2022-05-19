@@ -5581,7 +5581,6 @@ function DonateForm(props) {
           type: "number",
           name: "amount",
           value: amount,
-          placeholder: "Amount",
           className: 'sfua-donate-form__input-box__large',
           onChange: function onChange(e) {
             return setAmount(e.target.value);
@@ -6027,6 +6026,24 @@ var _App = _interopRequireDefault(require("./App"));
 var _reportWebVitals = _interopRequireDefault(require("./reportWebVitals"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _a, _b;
+
+var campaign_SBGSU_anchor = document.getElementById("modal0");
+
+if (campaign_SBGSU_anchor) {
+  // Remove prelude
+  var el = (_a = document.getElementById("latest-news")) === null || _a === void 0 ? void 0 : _a.querySelector(".post-entry");
+
+  if (el) {
+    (_b = el.parentElement) === null || _b === void 0 ? void 0 : _b.removeChild(el);
+  } // Add donation form
+
+
+  if (campaign_SBGSU_anchor.parentElement) {
+    campaign_SBGSU_anchor.parentElement.innerHTML += '<div id="donate-widget-sbgsu" data-campaign="2FUA-SBGSU" class="secondfront-donate-widget"></div>';
+  }
+}
 
 var widgetDivs = document.querySelectorAll('.secondfront-donate-widget');
 widgetDivs.forEach(function (div) {
