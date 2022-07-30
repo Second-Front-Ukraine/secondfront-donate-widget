@@ -6029,9 +6029,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _a, _b;
 
-var campaign_SBGSU_anchor = document.getElementById("modal0");
+var campaign_anchor = document.getElementById("modal0");
 
-if (campaign_SBGSU_anchor) {
+if (campaign_anchor) {
   // Remove prelude
   var el = (_a = document.getElementById("latest-news")) === null || _a === void 0 ? void 0 : _a.querySelector(".post-entry");
 
@@ -6040,8 +6040,8 @@ if (campaign_SBGSU_anchor) {
   } // Add donation form
 
 
-  if (campaign_SBGSU_anchor.parentElement) {
-    campaign_SBGSU_anchor.parentElement.innerHTML += '<div id="donate-widget-sbgsu" data-campaign="2FUA-SBGSU" class="secondfront-donate-widget"></div>';
+  if (campaign_anchor.parentElement) {
+    campaign_anchor.parentElement.innerHTML += '<div id="donate-widget-batt130" data-campaign="2FUA-BATT130" class="secondfront-donate-widget"></div>';
   }
 }
 
