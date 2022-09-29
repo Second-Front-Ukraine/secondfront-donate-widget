@@ -7,13 +7,13 @@ import reportWebVitals from './reportWebVitals';
 const campaign_anchor = document.getElementById("modal0");
 if (campaign_anchor) {
   // Remove prelude
-  var el = document.getElementById("latest-news")?.querySelector(".post-entry");
-  if (el) {
-    el.parentElement?.removeChild(el);
-  }
+  // var el = document.getElementById("latest-news")?.querySelector(".post-entry");
+  // if (el) {
+  //   el.parentElement?.removeChild(el);
+  // }
   // Add donation form
   if (campaign_anchor.parentElement) {
-    campaign_anchor.parentElement.innerHTML += '<div id="donate-widget-batt130" data-campaign="2FUA-BATT130" class="secondfront-donate-widget"></div>'
+    campaign_anchor.parentElement.innerHTML += '<div id="donate-widget-featured" data-campaign="2FUA-RUNCM" class="secondfront-donate-widget"></div>'
   }
 }
 
