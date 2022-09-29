@@ -6027,21 +6027,17 @@ var _reportWebVitals = _interopRequireDefault(require("./reportWebVitals"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _a, _b;
-
 var campaign_anchor = document.getElementById("modal0");
 
 if (campaign_anchor) {
   // Remove prelude
-  var el = (_a = document.getElementById("latest-news")) === null || _a === void 0 ? void 0 : _a.querySelector(".post-entry");
-
-  if (el) {
-    (_b = el.parentElement) === null || _b === void 0 ? void 0 : _b.removeChild(el);
-  } // Add donation form
-
-
+  // var el = document.getElementById("latest-news")?.querySelector(".post-entry");
+  // if (el) {
+  //   el.parentElement?.removeChild(el);
+  // }
+  // Add donation form
   if (campaign_anchor.parentElement) {
-    campaign_anchor.parentElement.innerHTML += '<div id="donate-widget-batt130" data-campaign="2FUA-BATT130" class="secondfront-donate-widget"></div>';
+    campaign_anchor.parentElement.innerHTML += '<div id="donate-widget-featured" data-campaign="2FUA-RUNCM" class="secondfront-donate-widget"></div>';
   }
 }
 
