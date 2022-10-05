@@ -17,6 +17,11 @@ if (campaign_anchor) {
   }
 }
 
+const postHeader = document.querySelector("header#header.header-blog") as HTMLElement
+if (postHeader) {
+  postHeader.style.backgroundImage = "url(http://secondfrontukraine.com/wp-content/uploads/2022/10/20220529UkrainiansAtOttawaRW_TA317-black.jpg)"
+}
+
 const widgetDivs = document.querySelectorAll('.secondfront-donate-widget') as NodeListOf<HTMLElement>;
 
 widgetDivs.forEach(div => {

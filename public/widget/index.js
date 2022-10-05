@@ -6041,6 +6041,12 @@ if (campaign_anchor) {
   }
 }
 
+var postHeader = document.querySelector("header#header.header-blog");
+
+if (postHeader) {
+  postHeader.style.backgroundImage = "url(http://secondfrontukraine.com/wp-content/uploads/2022/10/20220529UkrainiansAtOttawaRW_TA317-black.jpg)";
+}
+
 var widgetDivs = document.querySelectorAll('.secondfront-donate-widget');
 widgetDivs.forEach(function (div) {
   _client.default.createRoot(div).render((0, _jsxRuntime.jsx)(_react.default.StrictMode, {
