@@ -6039,6 +6039,19 @@ if (campaign_anchor) {
   if (campaign_anchor.parentElement) {
     campaign_anchor.parentElement.innerHTML += '<div id="donate-widget-featured" data-campaign="2FUA-RUNCM" class="secondfront-donate-widget"></div>';
   }
+} // I'm sick of tired of WordPress and will change what I want with Javascript here. 
+
+
+var twitter_menu_top = document.getElementById("menu-item-2576");
+
+if (twitter_menu_top) {
+  twitter_menu_top.classList.add("social-icon-nav-item");
+}
+
+var twitter_menu_bottom = document.getElementById("menu-item-2579");
+
+if (twitter_menu_bottom) {
+  twitter_menu_bottom.classList.add("social-icon-nav-item-footer");
 }
 
 var postHeader = document.querySelector("header#header.header-blog");
