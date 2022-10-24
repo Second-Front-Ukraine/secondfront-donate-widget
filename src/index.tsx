@@ -32,13 +32,13 @@ if (postHeader) {
   postHeader.style.backgroundImage = "url(http://secondfrontukraine.com/wp-content/uploads/2022/10/20220529UkrainiansAtOttawaRW_TA317-black.jpg)"
 }
 
-const redundantHeading = document.querySelector("header.header-blog + .container h3.mt-5.text-center") as HTMLElement
-if (redundantHeading) {
-  redundantHeading.remove();
-}
 const redundantHeadingLine = document.querySelector("header.header-blog + .container h3 + .line-border") as HTMLElement
 if (redundantHeadingLine) {
   redundantHeadingLine.remove();
+}
+const redundantHeading = document.querySelector("header.header-blog + .container h3.mt-5.text-center") as HTMLElement
+if (redundantHeading) {
+  redundantHeading.remove();
 }
 
 const widgetDivs = document.querySelectorAll('.secondfront-donate-widget') as NodeListOf<HTMLElement>;
