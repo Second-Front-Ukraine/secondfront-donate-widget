@@ -48,7 +48,7 @@ function DonateForm(props: DonateFormProps) {
             setAmount(amount.toString());
         }
         return (
-            <a href="#" onClick={onClickHandler}>${amount.toLocaleString('en-CA')}</a>
+            <a href="#" onClick={onClickHandler} key={`option-${amount}`}>${amount.toLocaleString('en-CA')}</a>
         )
     });
 

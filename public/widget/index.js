@@ -5556,7 +5556,7 @@ function DonateForm(props) {
       onClick: onClickHandler
     }, {
       children: ["$", amount.toLocaleString('en-CA')]
-    }));
+    }), "option-".concat(amount));
   });
   return (0, _jsxRuntime.jsxs)("div", __assign({
     className: "2fua-donate-form"
@@ -6058,6 +6058,18 @@ var postHeader = document.querySelector("header#header.header-blog");
 
 if (postHeader) {
   postHeader.style.backgroundImage = "url(http://secondfrontukraine.com/wp-content/uploads/2022/10/20220529UkrainiansAtOttawaRW_TA317-black.jpg)";
+}
+
+var redundantHeading = document.querySelector("header.header-blog + .container h3.mt-5.text-center");
+
+if (redundantHeading) {
+  redundantHeading.remove();
+}
+
+var redundantHeadingLine = document.querySelector("header.header-blog + .container h3 + .line-border");
+
+if (redundantHeadingLine) {
+  redundantHeadingLine.remove();
 }
 
 var widgetDivs = document.querySelectorAll('.secondfront-donate-widget');
