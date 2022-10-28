@@ -13,7 +13,7 @@ if (campaign_anchor) {
   // }
   // Add donation form
   if (campaign_anchor.parentElement) {
-    campaign_anchor.parentElement.innerHTML += '<div id="donate-widget-featured" data-campaign="2FUA-RUNCM" class="secondfront-donate-widget"></div>'
+    campaign_anchor.parentElement.innerHTML += '<div id="donate-widget-featured" data-campaign="2FUA-RFUA01" class="secondfront-donate-widget"></div>'
   }
 }
 
