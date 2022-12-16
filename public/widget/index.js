@@ -5584,7 +5584,8 @@ function DonateForm(props) {
           className: 'sfua-donate-form__input-box__large',
           onChange: function onChange(e) {
             return setAmount(e.target.value);
-          }
+          },
+          placeholder: "Enter amount"
         })]
       })), !addIdentity || !addNote ? (0, _jsxRuntime.jsxs)("div", __assign({
         className: 'sfua-donate-form__add'
@@ -5715,6 +5716,7 @@ function Widget(props) {
       setTab = _b[1];
 
   var breakPoll = (0, _react.useRef)(false);
+  var today = new Date().toISOString().slice(0, 10);
 
   var openPaymentForm = function openPaymentForm(tabToOpen) {
     window.open(tabToOpen.url, "", "width=1024, height=768");
@@ -5746,7 +5748,7 @@ function Widget(props) {
 
   var onTabCreated = function onTabCreated(tab) {
     setTab(tab);
-    localStorage.setItem("tab-in-progress-".concat(props.campaign), JSON.stringify(tab));
+    localStorage.setItem("tab-in-progress-".concat(props.campaign, "-").concat(today), JSON.stringify(tab));
     openPaymentForm(tab);
     pollForPayment(tab);
   };
@@ -5770,7 +5772,7 @@ function Widget(props) {
     } // Check local storage for existing donation Tab
 
 
-    var items = localStorage.getItem("tab-in-progress-".concat(props.campaign));
+    var items = localStorage.getItem("tab-in-progress-".concat(props.campaign, "-").concat(today));
 
     if (items) {
       var parsedTab = JSON.parse(items);
