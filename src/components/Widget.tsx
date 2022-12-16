@@ -26,6 +26,7 @@ function Widget(props: WidgetProps) {
     } as Campaign);
     const [tab, setTab] = useState(undefined as Tab | undefined);
     const breakPoll = useRef(false);
+    const today = new Date().toISOString().slice(0, 10);
 
     const openPaymentForm = (tabToOpen: Tab) => {
         window.open(tabToOpen.url, "", "width=1024, height=768");
@@ -42,7 +43,7 @@ function Widget(props: WidgetProps) {
             } else {
                 setTab(result.data);
                 if (props.showCollections) {
-                    fetchCampaign();   
+                    fetchCampaign();
                 }
             }
         });
@@ -50,7 +51,7 @@ function Widget(props: WidgetProps) {
 
     const onTabCreated = (tab: Tab) => {
         setTab(tab);
-        localStorage.setItem(`tab-in-progress-${props.campaign}`, JSON.stringify(tab));
+        localStorage.setItem(`tab-in-progress-${props.campaign}-${today}`, JSON.stringify(tab));
         openPaymentForm(tab);
         pollForPayment(tab);
     }
@@ -70,11 +71,11 @@ function Widget(props: WidgetProps) {
     useEffect(() => {
         // Load Campaign details
         if (props.showCollections) {
-            fetchCampaign();   
+            fetchCampaign();
         }
 
         // Check local storage for existing donation Tab
-        const items = localStorage.getItem(`tab-in-progress-${props.campaign}`);
+        const items = localStorage.getItem(`tab-in-progress-${props.campaign}-${today}`);
         if (items) {
             const parsedTab: Tab = JSON.parse(items)
             setTab(parsedTab);
