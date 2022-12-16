@@ -5,6 +5,7 @@ import { wave } from '../axiosInstances';
 
 export interface WidgetProps {
     campaign: string;
+    showCollections: boolean;
 }
 
 interface Campaign {
@@ -40,7 +41,9 @@ function Widget(props: WidgetProps) {
                 }
             } else {
                 setTab(result.data);
-                fetchCampaign();
+                if (props.showCollections) {
+                    fetchCampaign();   
+                }
             }
         });
     }
@@ -66,7 +69,9 @@ function Widget(props: WidgetProps) {
 
     useEffect(() => {
         // Load Campaign details
-        fetchCampaign();
+        if (props.showCollections) {
+            fetchCampaign();   
+        }
 
         // Check local storage for existing donation Tab
         const items = localStorage.getItem(`tab-in-progress-${props.campaign}`);
@@ -86,7 +91,9 @@ function Widget(props: WidgetProps) {
 
     return (
         <div className="sfua-widget">
-            <p>Collected to date <strong>${campaignData.collected / 100}</strong></p>
+        {props.showCollections ? (
+            <p>Collected to date: <strong>${campaignData.collected / 100}</strong></p>
+        ): null}
             {tab ? tab.paid ? (
                 <div>
                     <p>Thank you for supporting Ukraine! <br />💙&nbsp;💛 <br /><a href="#" onClick={handleDonationCancel}>Click here to make another contribution</a></p>

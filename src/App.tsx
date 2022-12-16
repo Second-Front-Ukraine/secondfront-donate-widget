@@ -5,12 +5,13 @@ import Widget from './components/Widget';
 
 export interface AppProps {
   campaign: string;
+  hideCollections?: boolean;
 }
 
 function App(props: AppProps) {
   return (
     <div className="App">
-      <Widget campaign={props.campaign} />
+      <Widget campaign={props.campaign} showCollections={!props.hideCollections} />
     </div>
   );
 }

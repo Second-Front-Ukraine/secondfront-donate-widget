@@ -46,7 +46,7 @@ const widgetDivs = document.querySelectorAll('.secondfront-donate-widget') as No
 widgetDivs.forEach(div => {
   ReactDOM.createRoot(div).render(
     <React.StrictMode>
-      <App campaign={div.dataset.campaign || ''} />
+      <App campaign={div.dataset.campaign || ''} hideCollections={div.dataset.hideCollections === "1"} />
     </React.StrictMode>
   );
 });

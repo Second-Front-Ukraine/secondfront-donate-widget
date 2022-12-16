@@ -39,7 +39,7 @@ function DonateForm(props: DonateFormProps) {
         setAddNote(true);
     }
 
-    const amountOptions = [25.00, null, 50.00, null, 100].map(amount => {
+    const amountOptions = [25.00, null, 50.00, null, 100.00, null, 200.00].map(amount => {
         if (!amount) {
             return ' | '
         }
