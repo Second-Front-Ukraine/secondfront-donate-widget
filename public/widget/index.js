@@ -5541,7 +5541,7 @@ function DonateForm(props) {
     setAddNote(true);
   };
 
-  var amountOptions = [25.00, null, 50.00, null, 100].map(function (amount) {
+  var amountOptions = [25.00, null, 50.00, null, 100.00, null, 200.00].map(function (amount) {
     if (!amount) {
       return ' | ';
     }
@@ -5736,7 +5736,10 @@ function Widget(props) {
         }
       } else {
         setTab(result.data);
-        fetchCampaign();
+
+        if (props.showCollections) {
+          fetchCampaign();
+        }
       }
     });
   };
@@ -5762,7 +5765,10 @@ function Widget(props) {
 
   (0, _react.useEffect)(function () {
     // Load Campaign details
-    fetchCampaign(); // Check local storage for existing donation Tab
+    if (props.showCollections) {
+      fetchCampaign();
+    } // Check local storage for existing donation Tab
+
 
     var items = localStorage.getItem("tab-in-progress-".concat(props.campaign));
 
@@ -5784,11 +5790,11 @@ function Widget(props) {
   return (0, _jsxRuntime.jsxs)("div", __assign({
     className: "sfua-widget"
   }, {
-    children: [(0, _jsxRuntime.jsxs)("p", {
-      children: ["Collected to date ", (0, _jsxRuntime.jsxs)("strong", {
+    children: [props.showCollections ? (0, _jsxRuntime.jsxs)("p", {
+      children: ["Collected to date: ", (0, _jsxRuntime.jsxs)("strong", {
         children: ["$", campaignData.collected / 100]
       })]
-    }), tab ? tab.paid ? (0, _jsxRuntime.jsx)("div", {
+    }) : null, tab ? tab.paid ? (0, _jsxRuntime.jsx)("div", {
       children: (0, _jsxRuntime.jsxs)("p", {
         children: ["Thank you for supporting Ukraine! ", (0, _jsxRuntime.jsx)("br", {}), "\uD83D\uDC99\xA0\uD83D\uDC9B ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
           href: "#",
@@ -5861,7 +5867,8 @@ function App(props) {
     className: "App"
   }, {
     children: (0, _jsxRuntime.jsx)(_Widget.default, {
-      campaign: props.campaign
+      campaign: props.campaign,
+      showCollections: !props.hideCollections
     })
   }));
 }
@@ -6076,7 +6083,8 @@ var widgetDivs = document.querySelectorAll('.secondfront-donate-widget');
 widgetDivs.forEach(function (div) {
   _client.default.createRoot(div).render((0, _jsxRuntime.jsx)(_react.default.StrictMode, {
     children: (0, _jsxRuntime.jsx)(_App.default, {
-      campaign: div.dataset.campaign || ''
+      campaign: div.dataset.campaign || '',
+      hideCollections: div.dataset.hideCollections === "1"
     })
   }));
 }); // If you want to start measuring performance in your app, pass a function
