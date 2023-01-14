@@ -5792,11 +5792,28 @@ function Widget(props) {
   return (0, _jsxRuntime.jsxs)("div", __assign({
     className: "sfua-widget"
   }, {
-    children: [props.showCollections ? (0, _jsxRuntime.jsxs)("p", {
+    children: [props.showCollections && !props.targetCollections ? (0, _jsxRuntime.jsxs)("p", {
       children: ["Collected to date: ", (0, _jsxRuntime.jsxs)("strong", {
         children: ["$", campaignData.collected / 100]
       })]
-    }) : null, tab ? tab.paid ? (0, _jsxRuntime.jsx)("div", {
+    }) : null, props.targetCollections ? (0, _jsxRuntime.jsxs)("div", __assign({
+      className: "sfua-widget-progress-container"
+    }, {
+      children: [(0, _jsxRuntime.jsxs)("div", {
+        children: [(0, _jsxRuntime.jsxs)("p", {
+          children: ["Raised: ", (0, _jsxRuntime.jsxs)("strong", {
+            children: ["$", campaignData.collected / 100]
+          })]
+        }), (0, _jsxRuntime.jsxs)("p", {
+          children: ["Goal: ", (0, _jsxRuntime.jsxs)("strong", {
+            children: ["$", props.targetCollections]
+          })]
+        })]
+      }), (0, _jsxRuntime.jsx)("progress", {
+        max: props.targetCollections,
+        value: campaignData.collected / 100
+      })]
+    })) : null, tab ? tab.paid ? (0, _jsxRuntime.jsx)("div", {
       children: (0, _jsxRuntime.jsxs)("p", {
         children: ["Thank you for supporting Ukraine! ", (0, _jsxRuntime.jsx)("br", {}), "\uD83D\uDC99\xA0\uD83D\uDC9B ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
           href: "#",
@@ -5870,7 +5887,8 @@ function App(props) {
   }, {
     children: (0, _jsxRuntime.jsx)(_Widget.default, {
       campaign: props.campaign,
-      showCollections: !props.hideCollections
+      showCollections: !props.hideCollections,
+      targetCollections: props.targetCollections
     })
   }));
 }
@@ -6086,7 +6104,8 @@ widgetDivs.forEach(function (div) {
   _client.default.createRoot(div).render((0, _jsxRuntime.jsx)(_react.default.StrictMode, {
     children: (0, _jsxRuntime.jsx)(_App.default, {
       campaign: div.dataset.campaign || '',
-      hideCollections: div.dataset.hideCollections === "1"
+      hideCollections: div.dataset.hideCollections === "1",
+      targetCollections: +(div.dataset.targetCollections || "0")
     })
   }));
 }); // If you want to start measuring performance in your app, pass a function

@@ -33,7 +33,7 @@
 .sfua-donate-form__input-box input, textarea {
   flex-grow: 1;
   background: #fff;
-  border: none!important;
+  border: none !important;
   outline: none;
   padding: 0.5rem;
   width: 100%;
@@ -87,38 +87,57 @@
 }
 
 .invoice-insights__payments-banner {
-    padding: 8px 16px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    padding-bottom: 4px;
+  padding: 8px 16px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 4px;
 }
 
 .wv-icon--payment-method--bank-payment {
-    background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/bank-payment.svg);
-    border: 1px solid #dcdfe0;
+  background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/bank-payment.svg);
+  border: 1px solid #dcdfe0;
 }
 
 .wv-icon--payment-method--cc-amex {
-    background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/cc-amex.svg);
-    border: 1px solid #dcdfe0;
+  background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/cc-amex.svg);
+  border: 1px solid #dcdfe0;
 }
+
 .wv-icon--payment-method--cc-mastercard {
-    background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/cc-mastercard.svg);
-    border: 1px solid #dcdfe0;
-    background-color: #fff;
+  background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/cc-mastercard.svg);
+  border: 1px solid #dcdfe0;
+  background-color: #fff;
 }
+
 .wv-icon--payment-method--cc-visa {
-    background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/cc-visa.svg);
-    border: 1px solid #dcdfe0;
+  background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/cc-visa.svg);
+  border: 1px solid #dcdfe0;
 }
 
 .wv-icon--payment-method--small {
-    height: 26px;
-    width: 40px;
-    background-size: 40px 26px;
-    border-radius: 3px;
-    margin: 0 1px;
+  height: 26px;
+  width: 40px;
+  background-size: 40px 26px;
+  border-radius: 3px;
+  margin: 0 1px;
+}
+
+/* Progress bar */
+.sfua-widget-progress-container {
+  margin: 0 auto;
+  width: 100%;
+}
+.sfua-widget-progress-container > progress {
+  width: 100%;
+  height: 1.5rem;
+}
+.sfua-widget-progress-container div {
+  display: flex;
+}
+.sfua-widget-progress-container div p:first-child {
+  text-align: left;
+  margin-right: auto;
 }
 .App {
   text-align: center;
