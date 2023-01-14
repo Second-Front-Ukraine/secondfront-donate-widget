@@ -6,6 +6,7 @@ import { wave } from '../axiosInstances';
 export interface WidgetProps {
     campaign: string;
     showCollections: boolean;
+    targetCollections?: number;
 }
 
 interface Campaign {
@@ -92,9 +93,18 @@ function Widget(props: WidgetProps) {
 
     return (
         <div className="sfua-widget">
-        {props.showCollections ? (
-            <p>Collected to date: <strong>${campaignData.collected / 100}</strong></p>
-        ): null}
+            {props.showCollections && !props.targetCollections ? (
+                <p>Collected to date: <strong>${campaignData.collected / 100}</strong></p>
+            ) : null}
+            {props.targetCollections ? (
+                <div className="sfua-widget-progress-container">
+                    <div>
+                        <p>Raised: <strong>${campaignData.collected / 100}</strong></p>
+                        <p>Goal: <strong>${props.targetCollections}</strong></p>
+                    </div>
+                    <progress max={props.targetCollections} value={campaignData.collected / 100}></progress>
+                </div>
+            ) : null}
             {tab ? tab.paid ? (
                 <div>
                     <p>Thank you for supporting Ukraine! <br />💙&nbsp;💛 <br /><a href="#" onClick={handleDonationCancel}>Click here to make another contribution</a></p>

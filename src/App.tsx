@@ -6,12 +6,13 @@ import Widget from './components/Widget';
 export interface AppProps {
   campaign: string;
   hideCollections?: boolean;
+  targetCollections?: number;
 }
 
 function App(props: AppProps) {
   return (
     <div className="App">
-      <Widget campaign={props.campaign} showCollections={!props.hideCollections} />
+      <Widget campaign={props.campaign} showCollections={!props.hideCollections} targetCollections={props.targetCollections} />
     </div>
   );
 }
