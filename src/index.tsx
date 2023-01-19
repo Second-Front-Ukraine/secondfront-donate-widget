@@ -28,8 +28,13 @@ if (twitter_menu_bottom) {
 }
 
 const postHeader = document.querySelector("header#header.header-blog") as HTMLElement
-if (postHeader) {
+const isRunForUkraine = window.location.href.includes("run-for-ukraine");
+if (postHeader && isRunForUkraine) {
   postHeader.style.backgroundImage = "url(http://secondfrontukraine.com/wp-content/uploads/2022/10/20220529UkrainiansAtOttawaRW_TA317-black.jpg)"
+}
+const isIronBirds = window.location.href.includes("iron-birds");
+if (postHeader && isIronBirds) {
+  postHeader.style.backgroundImage = "url(http://secondfrontukraine.com/wp-content/uploads/2023/01/IMG_4945_HEAD.jpg)"
 }
 
 const redundantHeadingLine = document.querySelector("header.header-blog + .container h3 + .line-border") as HTMLElement

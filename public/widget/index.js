@@ -6082,9 +6082,16 @@ if (twitter_menu_bottom) {
 }
 
 var postHeader = document.querySelector("header#header.header-blog");
+var isRunForUkraine = window.location.href.includes("run-for-ukraine");
 
-if (postHeader) {
+if (postHeader && isRunForUkraine) {
   postHeader.style.backgroundImage = "url(http://secondfrontukraine.com/wp-content/uploads/2022/10/20220529UkrainiansAtOttawaRW_TA317-black.jpg)";
+}
+
+var isIronBirds = window.location.href.includes("iron-birds");
+
+if (postHeader && isIronBirds) {
+  postHeader.style.backgroundImage = "url(http://secondfrontukraine.com/wp-content/uploads/2023/01/IMG_4945_HEAD.jpg)";
 }
 
 var redundantHeadingLine = document.querySelector("header.header-blog + .container h3 + .line-border");
