@@ -177,3 +177,36 @@ progress {color: #005BBB;}
 .sfua-widget-progress-container strong {
   font-size: 2rem;
 }
+
+/* Amount selector */
+.sfua-donate-amount-selector {
+  width: 100%;
+}
+.sfua-donate-amount-selector button {
+  background-color: white;
+  border: 1px solid #005BBB;
+  color: #005BBB;
+  padding: 26px 10px;
+  cursor: pointer;
+  float: left;
+  font-size: 1.2rem;
+  font-weight: 700;
+  width: 25%;
+}
+
+.sfua-donate-amount-selector button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.sfua-donate-amount-selector:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.sfua-donate-amount-selector button:hover {
+  background-color: #005BBB;
+  color: white;
+}

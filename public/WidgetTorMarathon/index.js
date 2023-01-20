@@ -5457,7 +5457,96 @@ var wave = _axios.default.create({
 });
 
 exports.wave = wave;
-},{"axios":"dZBD"}],"ifG6":[function(require,module,exports) {
+},{"axios":"dZBD"}],"J9nC":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.StackedBoxAmountSelector = StackedBoxAmountSelector;
+exports.StackedTextAmountSelector = StackedTextAmountSelector;
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __assign = void 0 && (void 0).__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+function StackedBoxAmountSelector(props) {
+  return (0, _jsxRuntime.jsxs)("div", __assign({
+    className: "sfua-donate-amount-selector"
+  }, {
+    children: [(0, _jsxRuntime.jsx)("button", __assign({
+      onClick: function onClick() {
+        return props.onSelect(25.00);
+      }
+    }, {
+      children: "$25"
+    })), (0, _jsxRuntime.jsx)("button", __assign({
+      onClick: function onClick() {
+        return props.onSelect(50.00);
+      }
+    }, {
+      children: "$50"
+    })), (0, _jsxRuntime.jsx)("button", __assign({
+      onClick: function onClick() {
+        return props.onSelect(100.00);
+      }
+    }, {
+      children: "$100"
+    })), (0, _jsxRuntime.jsx)("button", __assign({
+      onClick: function onClick() {
+        return props.onSelect(200.00);
+      }
+    }, {
+      children: "$200"
+    }))]
+  }));
+}
+
+function StackedTextAmountSelector(props) {
+  var amountOptions = [25.00, null, 50.00, null, 100.00, null, 200.00].map(function (amount) {
+    if (!amount) {
+      return ' | ';
+    }
+
+    var onClickHandler = function onClickHandler(e) {
+      e.preventDefault();
+      props.onSelect(amount);
+    };
+
+    return (0, _jsxRuntime.jsxs)("a", __assign({
+      href: "#",
+      onClick: onClickHandler
+    }, {
+      children: ["$", amount.toLocaleString('en-CA')]
+    }), "option-".concat(amount));
+  });
+  return (0, _jsxRuntime.jsx)("div", __assign({
+    className: 'sfua-donate-form__amount-select'
+  }, {
+    children: (0, _jsxRuntime.jsx)("span", {
+      children: amountOptions
+    })
+  }));
+}
+},{"react/jsx-runtime":"plwR","react":"n8MK"}],"ifG6":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5470,6 +5559,8 @@ var _jsxRuntime = require("react/jsx-runtime");
 var _react = _interopRequireWildcard(require("react"));
 
 var _axiosInstances = require("../axiosInstances");
+
+var _AmountSelector = require("./AmountSelector");
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -5541,33 +5632,18 @@ function DonateForm(props) {
     setAddNote(true);
   };
 
-  var amountOptions = [25.00, null, 50.00, null, 100.00, null, 200.00].map(function (amount) {
-    if (!amount) {
-      return ' | ';
-    }
-
-    var onClickHandler = function onClickHandler(e) {
-      e.preventDefault();
-      setAmount(amount.toString());
-    };
-
-    return (0, _jsxRuntime.jsxs)("a", __assign({
-      href: "#",
-      onClick: onClickHandler
-    }, {
-      children: ["$", amount.toLocaleString('en-CA')]
-    }), "option-".concat(amount));
-  });
   return (0, _jsxRuntime.jsxs)("div", __assign({
     className: "2fua-donate-form"
   }, {
-    children: [(0, _jsxRuntime.jsx)("div", __assign({
-      className: 'sfua-donate-form__amount-select'
-    }, {
-      children: (0, _jsxRuntime.jsx)("span", {
-        children: amountOptions
-      })
-    })), (0, _jsxRuntime.jsxs)("form", __assign({
+    children: [props.useBoxSelector ? (0, _jsxRuntime.jsx)(_AmountSelector.StackedBoxAmountSelector, {
+      onSelect: function onSelect(amount) {
+        return setAmount(amount.toString());
+      }
+    }) : (0, _jsxRuntime.jsx)(_AmountSelector.StackedTextAmountSelector, {
+      onSelect: function onSelect(amount) {
+        return setAmount(amount.toString());
+      }
+    }), (0, _jsxRuntime.jsxs)("form", __assign({
       onSubmit: handleSubmit
     }, {
       children: [(0, _jsxRuntime.jsxs)("div", __assign({
@@ -5665,7 +5741,7 @@ function DonateForm(props) {
 
 var _default = DonateForm;
 exports.default = _default;
-},{"react/jsx-runtime":"plwR","react":"n8MK","../axiosInstances":"EICV"}],"wQMV":[function(require,module,exports) {
+},{"react/jsx-runtime":"plwR","react":"n8MK","../axiosInstances":"EICV","./AmountSelector":"J9nC"}],"wQMV":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6072,7 +6148,8 @@ function WidgetTorMarathon(props) {
       }, {
         children: (0, _jsxRuntime.jsx)(_DonateForm.default, {
           campaign: props.campaign,
-          onTabCreated: onTabCreated
+          onTabCreated: onTabCreated,
+          useBoxSelector: true
         })
       }))]
     }))
