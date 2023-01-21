@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import internal from 'stream';
 import { wave } from '../axiosInstances';
+import { StackedTextAmountSelector, StackedBoxAmountSelector } from './AmountSelector';
 
 export interface DonateFormProps {
     campaign: string;
-    onTabCreated: (tab: any) => void,
+    onTabCreated: (tab: any) => void;
+    useBoxSelector?: boolean;
 }
 
 function DonateForm(props: DonateFormProps) {
@@ -39,25 +41,13 @@ function DonateForm(props: DonateFormProps) {
         setAddNote(true);
     }
 
-    const amountOptions = [25.00, null, 50.00, null, 100.00, null, 200.00].map(amount => {
-        if (!amount) {
-            return ' | '
-        }
-        const onClickHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
-            e.preventDefault();
-            setAmount(amount.toString());
-        }
-        return (
-            <a href="#" onClick={onClickHandler} key={`option-${amount}`}>${amount.toLocaleString('en-CA')}</a>
-        )
-    });
-
-
     return (
         <div className="2fua-donate-form">
-            <div className='sfua-donate-form__amount-select'>
-                <span>{amountOptions}</span>
-            </div>
+        {props.useBoxSelector ? (
+            <StackedBoxAmountSelector onSelect={(amount: number) => setAmount(amount.toString())}/>
+        ): (
+            <StackedTextAmountSelector onSelect={(amount: number) => setAmount(amount.toString())}/>
+        )}
             <form onSubmit={handleSubmit}>
                 <div className="sfua-donate-form__input-box">
                     <span className="sfua-donate-form__input-box__prefix">CAD</span>

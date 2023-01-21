@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import internal from 'stream';
-import DonateForm from './DonateForm';
-import { wave } from '../axiosInstances';
-import { Campaign, Tab } from '../types';
+import logo from './logo.svg';
+import './widgetTorMarathon.css';
+import DonateForm from './components/DonateForm';
+import { wave } from './axiosInstances';
+import Widget from './components/Widget';
+import { Campaign, Tab } from './types';
+import { StackedBoxAmountSelector } from './components/AmountSelector';
 
-export interface WidgetProps {
+export interface AppProps {
     campaign: string;
-    showCollections: boolean;
-    targetCollections?: number;
+    targetCollections: number;
 }
 
-function Widget(props: WidgetProps) {
+
+function WidgetTorMarathon(props: AppProps) {
     const [campaignData, setCampaignData] = useState({
         slug: props.campaign,
         collected: 0
@@ -33,9 +36,7 @@ function Widget(props: WidgetProps) {
                 }
             } else {
                 setTab(result.data);
-                if (props.showCollections) {
-                    fetchCampaign();
-                }
+                fetchCampaign();
             }
         });
     }
@@ -61,9 +62,7 @@ function Widget(props: WidgetProps) {
 
     useEffect(() => {
         // Load Campaign details
-        if (props.showCollections) {
-            fetchCampaign();
-        }
+        fetchCampaign();
 
         // Check local storage for existing donation Tab
         const items = localStorage.getItem(`tab-in-progress-${props.campaign}-${today}`);
@@ -81,36 +80,34 @@ function Widget(props: WidgetProps) {
         }
     }
 
-    return (
-        <div className="sfua-widget">
-            {props.showCollections && !props.targetCollections ? (
-                <p>Collected to date: <strong>${campaignData.collected / 100}</strong></p>
-            ) : null}
-            {props.targetCollections ? (
-                <div className="sfua-widget-progress-container">
-                    <div>
-                        <p>Raised: <strong>${campaignData.collected / 100}</strong></p>
-                        <p>Goal: <strong>${props.targetCollections}</strong></p>
-                    </div>
-                    <progress max={props.targetCollections} value={campaignData.collected / 100}></progress>
-                </div>
-            ) : null}
-            {tab ? tab.paid ? (
-                <div>
-                    <p>Thank you for supporting Ukraine! <br />💙&nbsp;💛 <br /><a href="#" onClick={handleDonationCancel}>Click here to make another contribution</a></p>
-                </div>
-            ) : (
-                <div>
-                    <p>Processing <a href="#" onClick={handleClickDonation}>your donation</a> in another window. <br /><a href="#" onClick={handleDonationCancel}>Click here to cancel</a>.
-                    </p>
-                </div>
-            ) : (
-                <div>
-                    <DonateForm campaign={props.campaign} onTabCreated={onTabCreated} />
-                </div>
-            )}
+  return (
+    <div className="App">
+      <div className="sfua-widget">
+        <div className="sfua-widget-progress-container">
+            <h2>Please help us <br/>reach our goal</h2>
+            <div>
+                <p>Raised <br/><strong>${campaignData.collected / 100}</strong></p>
+                <p>Goal <br/><strong>${props.targetCollections}</strong></p>
+            </div>
+            <progress max={props.targetCollections} value={campaignData.collected / 100}></progress>
         </div>
-    );
+          {tab ? tab.paid ? (
+              <div className="sfua-widget-tab-container">
+                  <p>Thank you for supporting Ukraine! <br />💙&nbsp;💛 <br /><a href="#" onClick={handleDonationCancel}>Click here to make another contribution</a></p>
+              </div>
+          ) : (
+              <div className="sfua-widget-tab-container">
+                  <p>Processing <a href="#" onClick={handleClickDonation}>your donation</a> in another window. <br /><a href="#" onClick={handleDonationCancel}>Click here to cancel</a>.
+                  </p>
+              </div>
+          ) : (
+              <div className="sfua-widget-tab-container">
+                  <DonateForm campaign={props.campaign} onTabCreated={onTabCreated} useBoxSelector/>
+              </div>
+          )}
+      </div>
+    </div>
+  );
 }
 
-export default Widget;
+export default WidgetTorMarathon;
