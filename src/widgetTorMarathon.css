@@ -27,6 +27,7 @@
   font-weight: 300;
   font-size: 14px;
   color: #000;
+  white-space: nowrap;
 }
 
 .sfua-donate-form__input-box .sfua-donate-form__input-box__large {
