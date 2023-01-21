@@ -47,7 +47,7 @@ if (process.env.REACT_APP_BUILD_TARGET === 'WidgetTorMarathon') {
   if (postHeader && isRunForUkraine) {
     postHeader.style.backgroundImage = "url(http://secondfrontukraine.com/wp-content/uploads/2022/10/20220529UkrainiansAtOttawaRW_TA317-black.jpg)"
   }
-  const isIronBirds = window.location.href.includes("iron-birds");
+  const isIronBirds = window.location.href.includes("ironbirds");
   if (postHeader && isIronBirds) {
     postHeader.style.backgroundImage = "url(http://secondfrontukraine.com/wp-content/uploads/2023/01/IMG_4945_HEAD.jpg)"
   }
