@@ -6105,11 +6105,11 @@ function WidgetTorMarathon(props) {
         }), (0, _jsxRuntime.jsxs)("div", {
           children: [(0, _jsxRuntime.jsxs)("p", {
             children: ["Raised ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsxs)("strong", {
-              children: ["$", campaignData.collected / 100]
+              children: ["$", (campaignData.collected / 100).toLocaleString('en-CA')]
             })]
           }), (0, _jsxRuntime.jsxs)("p", {
             children: ["Goal ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsxs)("strong", {
-              children: ["$", props.targetCollections]
+              children: ["$", props.targetCollections.toLocaleString('en-CA')]
             })]
           })]
         }), (0, _jsxRuntime.jsx)("progress", {
