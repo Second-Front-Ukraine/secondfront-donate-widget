@@ -86,8 +86,8 @@ function WidgetTorMarathon(props: AppProps) {
         <div className="sfua-widget-progress-container">
             <h2>Please help us <br/>reach our goal</h2>
             <div>
-                <p>Raised <br/><strong>${campaignData.collected / 100}</strong></p>
-                <p>Goal <br/><strong>${props.targetCollections}</strong></p>
+                <p>Raised <br/><strong>${(campaignData.collected / 100).toLocaleString('en-CA')}</strong></p>
+                <p>Goal <br/><strong>${props.targetCollections.toLocaleString('en-CA')}</strong></p>
             </div>
             <progress max={props.targetCollections} value={campaignData.collected / 100}></progress>
         </div>
