@@ -7,11 +7,14 @@ export interface AmountSelectorProps {
 
 export function StackedBoxAmountSelector(props: AmountSelectorProps) {
     return (
-        <div className="sfua-donate-amount-selector">
-            <button onClick={() => props.onSelect(25.00)}>$25</button>
-            <button onClick={() => props.onSelect(50.00)}>$50</button>
-            <button onClick={() => props.onSelect(100.00)}>$100</button>
-            <button onClick={() => props.onSelect(200.00)}>$200</button>
+        <div className="sfua-donate-subheader">
+            <h3>Select amount to donate</h3>
+            <div className="sfua-donate-amount-selector">
+                <button onClick={() => props.onSelect(25.00)}>$25</button>
+                <button onClick={() => props.onSelect(50.00)}>$50</button>
+                <button onClick={() => props.onSelect(100.00)}>$100</button>
+                <button onClick={() => props.onSelect(200.00)}>$200</button>
+            </div>
         </div>
     )
 }

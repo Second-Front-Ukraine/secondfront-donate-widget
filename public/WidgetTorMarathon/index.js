@@ -5490,32 +5490,38 @@ var __assign = void 0 && (void 0).__assign || function () {
 
 function StackedBoxAmountSelector(props) {
   return (0, _jsxRuntime.jsxs)("div", __assign({
-    className: "sfua-donate-amount-selector"
+    className: "sfua-donate-subheader"
   }, {
-    children: [(0, _jsxRuntime.jsx)("button", __assign({
-      onClick: function onClick() {
-        return props.onSelect(25.00);
-      }
+    children: [(0, _jsxRuntime.jsx)("h3", {
+      children: "Select amount to donate"
+    }), (0, _jsxRuntime.jsxs)("div", __assign({
+      className: "sfua-donate-amount-selector"
     }, {
-      children: "$25"
-    })), (0, _jsxRuntime.jsx)("button", __assign({
-      onClick: function onClick() {
-        return props.onSelect(50.00);
-      }
-    }, {
-      children: "$50"
-    })), (0, _jsxRuntime.jsx)("button", __assign({
-      onClick: function onClick() {
-        return props.onSelect(100.00);
-      }
-    }, {
-      children: "$100"
-    })), (0, _jsxRuntime.jsx)("button", __assign({
-      onClick: function onClick() {
-        return props.onSelect(200.00);
-      }
-    }, {
-      children: "$200"
+      children: [(0, _jsxRuntime.jsx)("button", __assign({
+        onClick: function onClick() {
+          return props.onSelect(25.00);
+        }
+      }, {
+        children: "$25"
+      })), (0, _jsxRuntime.jsx)("button", __assign({
+        onClick: function onClick() {
+          return props.onSelect(50.00);
+        }
+      }, {
+        children: "$50"
+      })), (0, _jsxRuntime.jsx)("button", __assign({
+        onClick: function onClick() {
+          return props.onSelect(100.00);
+        }
+      }, {
+        children: "$100"
+      })), (0, _jsxRuntime.jsx)("button", __assign({
+        onClick: function onClick() {
+          return props.onSelect(200.00);
+        }
+      }, {
+        children: "$200"
+      }))]
     }))]
   }));
 }

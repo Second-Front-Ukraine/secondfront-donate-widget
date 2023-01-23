@@ -171,15 +171,23 @@ progress {color: #005BBB;}
 .sfua-widget-progress-container div p:first-child {
   text-align: left;
   margin-right: auto;
+  font-size: 1.2rem;
 }
 .sfua-widget-progress-container div p:last-child {
   text-align: right;
+  font-size: 1.2rem;
 }
 .sfua-widget-progress-container strong {
   font-size: 2rem;
 }
 
 /* Amount selector */
+.sfua-donate-subheader h3 {
+  color: #005BBB;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+
 .sfua-donate-amount-selector {
   width: 100%;
 }
