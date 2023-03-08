@@ -7,12 +7,16 @@ export interface AppProps {
   campaign: string;
   hideCollections?: boolean;
   targetCollections?: number;
+  enterRaffle?: boolean;
 }
 
 function App(props: AppProps) {
   return (
     <div className="App">
-      <Widget campaign={props.campaign} showCollections={!props.hideCollections} targetCollections={props.targetCollections} />
+      <Widget campaign={props.campaign}
+        showCollections={!props.hideCollections}
+        targetCollections={props.targetCollections}
+        enterRaffle={props.enterRaffle} />
     </div>
   );
 }

@@ -8,6 +8,7 @@ export interface WidgetProps {
     campaign: string;
     showCollections: boolean;
     targetCollections?: number;
+    enterRaffle?: boolean;
 }
 
 function Widget(props: WidgetProps) {
@@ -106,7 +107,7 @@ function Widget(props: WidgetProps) {
                 </div>
             ) : (
                 <div>
-                    <DonateForm campaign={props.campaign} onTabCreated={onTabCreated} />
+                    <DonateForm campaign={props.campaign} onTabCreated={onTabCreated} enterRaffle={props.enterRaffle}/>
                 </div>
             )}
         </div>

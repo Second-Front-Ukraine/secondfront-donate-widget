@@ -68,7 +68,8 @@ if (process.env.REACT_APP_BUILD_TARGET === 'WidgetTorMarathon') {
       <React.StrictMode>
         <App campaign={div.dataset.campaign || ''}
           hideCollections={div.dataset.hideCollections === "1"}
-          targetCollections={+(div.dataset.targetCollections || "0")} />
+          targetCollections={+(div.dataset.targetCollections || "0")}
+          enterRaffle={div.dataset.enterRaffle === "1"} />
       </React.StrictMode>
     );
   });

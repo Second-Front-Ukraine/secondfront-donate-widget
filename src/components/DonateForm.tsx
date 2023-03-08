@@ -7,6 +7,7 @@ export interface DonateFormProps {
     campaign: string;
     onTabCreated: (tab: any) => void;
     useBoxSelector?: boolean;
+    enterRaffle?: boolean;
 }
 
 function DonateForm(props: DonateFormProps) {
@@ -15,7 +16,7 @@ function DonateForm(props: DonateFormProps) {
     const [fullName, setFullname] = useState("");
     const [memo, setMemo] = useState("");
     const [addNote, setAddNote] = useState(false);
-    const [addIdentity, setAddIdentity] = useState(false);
+    const [addIdentity, setAddIdentity] = useState(!!props.enterRaffle);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -42,7 +43,7 @@ function DonateForm(props: DonateFormProps) {
     }
 
     return (
-        <div className="2fua-donate-form">
+        <div className="sfua-donate-form">
         {props.useBoxSelector ? (
             <StackedBoxAmountSelector onSelect={(amount: number) => setAmount(amount.toString())}/>
         ): (
@@ -60,16 +61,8 @@ function DonateForm(props: DonateFormProps) {
                         placeholder="Enter amount"
                     />
                 </div>
-                {!addIdentity || !addNote ? (
-                    <div className='sfua-donate-form__add'>
-                        {!addIdentity ? (
-                            <a href="#" onClick={handleAddIdentity}>Include email to receive updates</a>
-                        ) : null}
-                        {addIdentity === addNote ? (" | ") : null}
-                        {!addNote ? (
-                            <a href="#" onClick={handleAddNote}>Add a note</a>
-                        ) : null}
-                    </div>
+                {props.enterRaffle ? (
+                    <p className="sfua-donate-enter-raffle">🇺🇦 Please add your email address for a chance to <strong>win the National Flag of Ukraine signed by Valerii Zaluzhnyi</strong>, Commander-in-Chief of the Armed Forces of Ukraine.</p>
                 ) : null}
                 {addIdentity ? (
                     <div className="sfua-donate-form__input-box">
@@ -104,6 +97,17 @@ function DonateForm(props: DonateFormProps) {
                             rows={7}
                             onChange={(e) => setMemo(e.target.value)}
                         />
+                    </div>
+                ) : null}
+                {!addIdentity || !addNote ? (
+                    <div className='sfua-donate-form__add'>
+                        {!addIdentity ? (
+                            <a href="#" onClick={handleAddIdentity}>Include email to receive updates</a>
+                        ) : null}
+                        {addIdentity === addNote ? (" | ") : null}
+                        {!addNote ? (
+                            <a href="#" onClick={handleAddNote}>Add a note</a>
+                        ) : null}
                     </div>
                 ) : null}
                 <div>
