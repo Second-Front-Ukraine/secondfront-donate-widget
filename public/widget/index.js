@@ -5490,32 +5490,38 @@ var __assign = void 0 && (void 0).__assign || function () {
 
 function StackedBoxAmountSelector(props) {
   return (0, _jsxRuntime.jsxs)("div", __assign({
-    className: "sfua-donate-amount-selector"
+    className: "sfua-donate-subheader"
   }, {
-    children: [(0, _jsxRuntime.jsx)("button", __assign({
-      onClick: function onClick() {
-        return props.onSelect(25.00);
-      }
+    children: [(0, _jsxRuntime.jsx)("h3", {
+      children: "Select amount to donate"
+    }), (0, _jsxRuntime.jsxs)("div", __assign({
+      className: "sfua-donate-amount-selector"
     }, {
-      children: "$25"
-    })), (0, _jsxRuntime.jsx)("button", __assign({
-      onClick: function onClick() {
-        return props.onSelect(50.00);
-      }
-    }, {
-      children: "$50"
-    })), (0, _jsxRuntime.jsx)("button", __assign({
-      onClick: function onClick() {
-        return props.onSelect(100.00);
-      }
-    }, {
-      children: "$100"
-    })), (0, _jsxRuntime.jsx)("button", __assign({
-      onClick: function onClick() {
-        return props.onSelect(200.00);
-      }
-    }, {
-      children: "$200"
+      children: [(0, _jsxRuntime.jsx)("button", __assign({
+        onClick: function onClick() {
+          return props.onSelect(25.00);
+        }
+      }, {
+        children: "$25"
+      })), (0, _jsxRuntime.jsx)("button", __assign({
+        onClick: function onClick() {
+          return props.onSelect(50.00);
+        }
+      }, {
+        children: "$50"
+      })), (0, _jsxRuntime.jsx)("button", __assign({
+        onClick: function onClick() {
+          return props.onSelect(100.00);
+        }
+      }, {
+        children: "$100"
+      })), (0, _jsxRuntime.jsx)("button", __assign({
+        onClick: function onClick() {
+          return props.onSelect(200.00);
+        }
+      }, {
+        children: "$200"
+      }))]
     }))]
   }));
 }
@@ -5603,7 +5609,7 @@ function DonateForm(props) {
       addNote = _e[0],
       setAddNote = _e[1];
 
-  var _f = (0, _react.useState)(false),
+  var _f = (0, _react.useState)(!!props.enterRaffle),
       addIdentity = _f[0],
       setAddIdentity = _f[1];
 
@@ -5633,7 +5639,7 @@ function DonateForm(props) {
   };
 
   return (0, _jsxRuntime.jsxs)("div", __assign({
-    className: "2fua-donate-form"
+    className: "sfua-donate-form"
   }, {
     children: [props.useBoxSelector ? (0, _jsxRuntime.jsx)(_AmountSelector.StackedBoxAmountSelector, {
       onSelect: function onSelect(amount) {
@@ -5663,20 +5669,12 @@ function DonateForm(props) {
           },
           placeholder: "Enter amount"
         })]
-      })), !addIdentity || !addNote ? (0, _jsxRuntime.jsxs)("div", __assign({
-        className: 'sfua-donate-form__add'
+      })), props.enterRaffle ? (0, _jsxRuntime.jsxs)("p", __assign({
+        className: "sfua-donate-enter-raffle"
       }, {
-        children: [!addIdentity ? (0, _jsxRuntime.jsx)("a", __assign({
-          href: "#",
-          onClick: handleAddIdentity
-        }, {
-          children: "Include email to receive updates"
-        })) : null, addIdentity === addNote ? " | " : null, !addNote ? (0, _jsxRuntime.jsx)("a", __assign({
-          href: "#",
-          onClick: handleAddNote
-        }, {
-          children: "Add a note"
-        })) : null]
+        children: ["\uD83C\uDDFA\uD83C\uDDE6 Please add your email address for a chance to ", (0, _jsxRuntime.jsx)("strong", {
+          children: "win the National Flag of Ukraine signed by Valerii Zaluzhnyi"
+        }), ", Commander-in-Chief of the Armed Forces of Ukraine."]
       })) : null, addIdentity ? (0, _jsxRuntime.jsx)("div", __assign({
         className: "sfua-donate-form__input-box"
       }, {
@@ -5713,6 +5711,20 @@ function DonateForm(props) {
             return setMemo(e.target.value);
           }
         })
+      })) : null, !addIdentity || !addNote ? (0, _jsxRuntime.jsxs)("div", __assign({
+        className: 'sfua-donate-form__add'
+      }, {
+        children: [!addIdentity ? (0, _jsxRuntime.jsx)("a", __assign({
+          href: "#",
+          onClick: handleAddIdentity
+        }, {
+          children: "Include email to receive updates"
+        })) : null, addIdentity === addNote ? " | " : null, !addNote ? (0, _jsxRuntime.jsx)("a", __assign({
+          href: "#",
+          onClick: handleAddNote
+        }, {
+          children: "Add a note"
+        })) : null]
       })) : null, (0, _jsxRuntime.jsxs)("div", {
         children: [(0, _jsxRuntime.jsxs)("div", __assign({
           className: "invoice-insights__payments-banner"
@@ -5915,7 +5927,8 @@ function Widget(props) {
     }) : (0, _jsxRuntime.jsx)("div", {
       children: (0, _jsxRuntime.jsx)(_DonateForm.default, {
         campaign: props.campaign,
-        onTabCreated: onTabCreated
+        onTabCreated: onTabCreated,
+        enterRaffle: props.enterRaffle
       })
     })]
   }));
@@ -5964,7 +5977,8 @@ function App(props) {
     children: (0, _jsxRuntime.jsx)(_Widget.default, {
       campaign: props.campaign,
       showCollections: !props.hideCollections,
-      targetCollections: props.targetCollections
+      targetCollections: props.targetCollections,
+      enterRaffle: props.enterRaffle
     })
   }));
 }
@@ -6105,11 +6119,11 @@ function WidgetTorMarathon(props) {
         }), (0, _jsxRuntime.jsxs)("div", {
           children: [(0, _jsxRuntime.jsxs)("p", {
             children: ["Raised ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsxs)("strong", {
-              children: ["$", campaignData.collected / 100]
+              children: ["$", (campaignData.collected / 100).toLocaleString('en-CA')]
             })]
           }), (0, _jsxRuntime.jsxs)("p", {
             children: ["Goal ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsxs)("strong", {
-              children: ["$", props.targetCollections]
+              children: ["$", props.targetCollections.toLocaleString('en-CA')]
             })]
           })]
         }), (0, _jsxRuntime.jsx)("progress", {
@@ -6389,7 +6403,8 @@ if ("main" === 'WidgetTorMarathon') {
       children: (0, _jsxRuntime.jsx)(_App.default, {
         campaign: div.dataset.campaign || '',
         hideCollections: div.dataset.hideCollections === "1",
-        targetCollections: +(div.dataset.targetCollections || "0")
+        targetCollections: +(div.dataset.targetCollections || "0"),
+        enterRaffle: div.dataset.enterRaffle === "1"
       })
     }));
   });
