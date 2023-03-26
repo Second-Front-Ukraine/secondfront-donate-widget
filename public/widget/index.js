@@ -6355,7 +6355,7 @@ if ("main" === 'WidgetTorMarathon') {
     // }
     // Add donation form
     if (campaign_anchor.parentElement) {
-      campaign_anchor.parentElement.innerHTML += '<div id="donate-widget-featured" data-campaign="2FUA-IRONBIRDS" data-enter-raffle="1" class="secondfront-donate-widget"></div>';
+      campaign_anchor.parentElement.innerHTML += '<div id="donate-widget-featured" data-campaign="2FUA-IRONBIRDS" data-enter-raffle="0" class="secondfront-donate-widget"></div>';
     }
   } // I'm sick of tired of WordPress and will change what I want with Javascript here. 
 
