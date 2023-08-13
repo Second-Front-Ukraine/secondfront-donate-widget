@@ -82,8 +82,13 @@ function RegisterForm(props: RegisterFormProps) {
               },
             }
         };
+        // https://stackoverflow.com/a/39387533
+        var windowReference = window.open("", "", "width=1024, height=768");
         wave.post("/tab", inputData).then((result: any) => {
             props.onTabCreated(result.data);
+            if (!!result.data.url && windowReference) {
+                windowReference.location = result.data.url;
+            }
         })
     }
 

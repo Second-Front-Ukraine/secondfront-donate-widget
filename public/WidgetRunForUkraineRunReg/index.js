@@ -5678,10 +5678,16 @@ function RegisterForm(props) {
         'quantity': 1,
         'unitPrice': parseInt((Number(amount) * 100).toString())
       }, _a)
-    };
+    }; // https://stackoverflow.com/a/39387533
+
+    var windowReference = window.open("", "", "width=1024, height=768");
 
     _axiosInstances.wave.post("/tab", inputData).then(function (result) {
       props.onTabCreated(result.data);
+
+      if (!!result.data.url && windowReference) {
+        windowReference.location = result.data.url;
+      }
     });
   };
 
@@ -6608,7 +6614,197 @@ function WidgetRunForUkraineMMXXIII(props) {
 
 var _default = WidgetRunForUkraineMMXXIII;
 exports.default = _default;
-},{"react/jsx-runtime":"plwR","react":"n8MK","./widgetRunForUkraineMMXXIII.css":"vKFU","./components/DonateForm":"ifG6","./axiosInstances":"EICV"}],"FheM":[function(require,module,exports) {
+},{"react/jsx-runtime":"plwR","react":"n8MK","./widgetRunForUkraineMMXXIII.css":"vKFU","./components/DonateForm":"ifG6","./axiosInstances":"EICV"}],"qCMN":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+var _react = _interopRequireWildcard(require("react"));
+
+require("./widgetRunForUkraineRunReg.css");
+
+var _RegisterForm = _interopRequireDefault(require("./components/RegisterForm"));
+
+var _axiosInstances = require("./axiosInstances");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var __assign = void 0 && (void 0).__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+function WidgetRunForUkraineRunReg(props) {
+  var _a = (0, _react.useState)({
+    slug: props.campaign,
+    collected: 0
+  }),
+      campaignData = _a[0],
+      setCampaignData = _a[1];
+
+  var _b = (0, _react.useState)(undefined),
+      tab = _b[0],
+      setTab = _b[1];
+
+  var breakPoll = (0, _react.useRef)(false);
+  var today = new Date().toISOString().slice(0, 10);
+
+  var openPaymentForm = function openPaymentForm(tabToOpen) {
+    window.open(tabToOpen.url, "", "width=1024, height=768");
+  };
+
+  var pollForPayment = function pollForPayment(tabAsArgument, counter) {
+    if (counter === void 0) {
+      counter = 1;
+    }
+
+    _axiosInstances.wave.get("/tab/".concat(tabAsArgument === null || tabAsArgument === void 0 ? void 0 : tabAsArgument.tab_id)).then(function (result) {
+      if (!result.data.paid && counter <= 120) {
+        if (!breakPoll.current) {
+          setTimeout(function () {
+            return pollForPayment(tabAsArgument, counter + 1);
+          }, 5000);
+        } else {
+          breakPoll.current = false;
+        }
+      } else {
+        setTab(result.data);
+        fetchCampaign();
+      }
+    });
+  };
+
+  var onTabCreated = function onTabCreated(tab) {
+    setTab(tab);
+    localStorage.setItem("tab-in-progress-".concat(props.campaign, "-").concat(today), JSON.stringify(tab));
+    pollForPayment(tab);
+  };
+
+  var handleDonationCancel = function handleDonationCancel(e) {
+    e.preventDefault();
+    setTab(undefined);
+    breakPoll.current = true;
+  };
+
+  var fetchCampaign = function fetchCampaign() {
+    _axiosInstances.wave.get("/campaign/".concat(props.campaign)).then(function (result) {
+      setCampaignData(result.data.campaign);
+    });
+  };
+
+  (0, _react.useEffect)(function () {
+    // Load Campaign details
+    fetchCampaign(); // Check local storage for existing donation Tab
+
+    var items = localStorage.getItem("tab-in-progress-".concat(props.campaign, "-").concat(today));
+
+    if (items) {
+      var parsedTab = JSON.parse(items);
+      setTab(parsedTab);
+      pollForPayment(parsedTab);
+    }
+  }, []);
+
+  var handleClickDonation = function handleClickDonation(e) {
+    e.preventDefault();
+
+    if (tab) {
+      openPaymentForm(tab);
+    }
+  };
+
+  return (0, _jsxRuntime.jsx)("div", __assign({
+    className: "App"
+  }, {
+    children: (0, _jsxRuntime.jsxs)("div", __assign({
+      className: "sfua-widget"
+    }, {
+      children: [(0, _jsxRuntime.jsxs)("div", __assign({
+        className: "sfua-widget-progress-container"
+      }, {
+        children: [(0, _jsxRuntime.jsxs)("h2", {
+          children: ["Goal ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("span", __assign({
+            className: "sfua-widget-header-goal"
+          }, {
+            children: "CAD $69,920"
+          }))]
+        }), (0, _jsxRuntime.jsxs)("div", {
+          children: [(0, _jsxRuntime.jsxs)("p", {
+            children: ["Raised ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsxs)("strong", {
+              children: ["$", (campaignData.collected / 100).toLocaleString('en-CA')]
+            })]
+          }), (0, _jsxRuntime.jsxs)("p", {
+            children: ["Goal ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsxs)("strong", {
+              children: ["$", props.targetCollections.toLocaleString('en-CA')]
+            })]
+          })]
+        }), (0, _jsxRuntime.jsx)("progress", {
+          max: props.targetCollections,
+          value: campaignData.collected / 100
+        })]
+      })), tab ? tab.paid ? (0, _jsxRuntime.jsx)("div", __assign({
+        className: "sfua-widget-tab-container"
+      }, {
+        children: (0, _jsxRuntime.jsxs)("p", {
+          children: ["Thank you for supporting Ukraine! ", (0, _jsxRuntime.jsx)("br", {}), "\uD83D\uDC99\xA0\uD83D\uDC9B ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
+            href: "#",
+            onClick: handleDonationCancel
+          }, {
+            children: "Click here to make another contribution"
+          }))]
+        })
+      })) : (0, _jsxRuntime.jsx)("div", __assign({
+        className: "sfua-widget-tab-container"
+      }, {
+        children: (0, _jsxRuntime.jsxs)("p", {
+          children: ["Processing ", (0, _jsxRuntime.jsx)("a", __assign({
+            href: "#",
+            onClick: handleClickDonation
+          }, {
+            children: "your donation"
+          })), " in another window. ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
+            href: "#",
+            onClick: handleDonationCancel
+          }, {
+            children: "Click here to cancel"
+          })), "."]
+        })
+      })) : (0, _jsxRuntime.jsx)("div", __assign({
+        className: "sfua-widget-tab-container"
+      }, {
+        children: (0, _jsxRuntime.jsx)(_RegisterForm.default, {
+          campaign: props.campaign,
+          onTabCreated: onTabCreated,
+          useBoxSelector: true
+        })
+      }))]
+    }))
+  }));
+}
+
+var _default = WidgetRunForUkraineRunReg;
+exports.default = _default;
+},{"react/jsx-runtime":"plwR","react":"n8MK","./widgetRunForUkraineRunReg.css":"vKFU","./components/RegisterForm":"eJav","./axiosInstances":"EICV"}],"FheM":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -6862,8 +7058,9 @@ if ("WidgetRunForUkraineRunReg" === 'WidgetTorMarathon') {
     _client.default.createRoot(div).render((0, _jsxRuntime.jsx)(_react.default.StrictMode, {
       children: (0, _jsxRuntime.jsx)(_App.default, {
         campaign: div.dataset.campaign || '',
-        // hideCollections={div.dataset.hideCollections === "1"}
-        targetCollections: +(div.dataset.targetCollections || "0")
+        hideCollections: div.dataset.hideCollections === "1",
+        targetCollections: +(div.dataset.targetCollections || "0"),
+        enterRaffle: div.dataset.enterRaffle === "1"
       })
     }));
   });
@@ -6873,7 +7070,7 @@ if ("WidgetRunForUkraineRunReg" === 'WidgetTorMarathon') {
 
 
 (0, _reportWebVitals.default)();
-},{"react/jsx-runtime":"plwR","react":"n8MK","react-dom/client":"NdAl","./index.css":"vKFU","./App":"NHn6","./WidgetTorMarathon":"BVLj","./WidgetRunForUkraineMMXXIII":"JtXs","./WidgetRunForUkraineRunReg":"NHn6","./reportWebVitals":"vc0k"}],"Yi9z":[function(require,module,exports) {
+},{"react/jsx-runtime":"plwR","react":"n8MK","react-dom/client":"NdAl","./index.css":"vKFU","./App":"NHn6","./WidgetTorMarathon":"BVLj","./WidgetRunForUkraineMMXXIII":"JtXs","./WidgetRunForUkraineRunReg":"qCMN","./reportWebVitals":"vc0k"}],"Yi9z":[function(require,module,exports) {
 module.exports = function loadJSBundle(bundle) {
   return new Promise(function (resolve, reject) {
     var script = document.createElement('script');

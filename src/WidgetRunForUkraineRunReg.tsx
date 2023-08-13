@@ -44,7 +44,6 @@ function WidgetRunForUkraineRunReg(props: AppProps) {
     const onTabCreated = (tab: Tab) => {
         setTab(tab);
         localStorage.setItem(`tab-in-progress-${props.campaign}-${today}`, JSON.stringify(tab));
-        openPaymentForm(tab);
         pollForPayment(tab);
     }
 
