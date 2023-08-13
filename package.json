@@ -22,10 +22,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:widget": "REACT_APP_BUILD_TARGET=main parcel build src/index.tsx --no-source-maps --no-minify -d public/widget && cp build/static/css/*.css public/widget/index.css",
-    "build:tor-marathon-widget": "REACT_APP_BUILD_TARGET=WidgetTorMarathon parcel build src/index.tsx --no-source-maps --no-minify -d public/WidgetTorMarathon && cp build/static/css/*.css public/WidgetTorMarathon/index.css",
-    "build:WidgetRunForUkraineMMXXIII": "REACT_APP_BUILD_TARGET=WidgetRunForUkraineMMXXIII parcel build src/index.tsx --no-source-maps --no-minify -d public/WidgetRunForUkraineMMXXIII && cp build/static/css/*.css public/WidgetRunForUkraineMMXXIII/index.css",
-    "build:WidgetRunForUkraineRunReg": "REACT_APP_BUILD_TARGET=WidgetRunForUkraineRunReg parcel build src/index.tsx --no-source-maps --no-minify -d public/WidgetRunForUkraineRunReg && cp build/static/css/*.css public/WidgetRunForUkraineRunReg/index.css"
+    "build:widget": "REACT_APP_BUILD_TARGET=main parcel build src/index.tsx --no-source-maps --no-minify -d public/widget && cp index.css public/widget/index.css",
+    "build:tor-marathon-widget": "REACT_APP_BUILD_TARGET=WidgetTorMarathon parcel build src/index.tsx --no-source-maps --no-minify -d public/WidgetTorMarathon && cp widgetTorMarathon.css public/WidgetTorMarathon/index.css",
+    "build:WidgetRunForUkraineMMXXIII": "REACT_APP_BUILD_TARGET=WidgetRunForUkraineMMXXIII parcel build src/index.tsx --no-source-maps --no-minify -d public/WidgetRunForUkraineMMXXIII && cp widgetRunForUkraineMMXXIII.css public/WidgetRunForUkraineMMXXIII/index.css",
+    "build:WidgetRunForUkraineRunReg": "REACT_APP_BUILD_TARGET=WidgetRunForUkraineRunReg parcel build src/index.tsx --no-source-maps --no-minify -d public/WidgetRunForUkraineRunReg && cp widgetRunForUkraineRunReg.css public/WidgetRunForUkraineRunReg/index.css"
   },
   "eslintConfig": {
     "extends": [
