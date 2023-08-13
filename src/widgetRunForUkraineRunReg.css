@@ -1,0 +1,241 @@
+.sfua-widget {
+  /* max-width: 300px; */
+  margin: 0 auto;
+}
+
+.sfua-widget-tab-container {
+  max-width: 300px;
+  margin: 1rem auto;
+}
+
+.sfua-donate-form__input-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #a0a0a0;
+  margin-top: 10px;
+  padding-left: 0.5rem;
+  overflow: hidden;
+  font-family: sans-serif;
+
+  border: 1px solid #fed02f;
+  color: #000;
+}
+
+.sfua-donate-form__input-box .sfua-donate-form__input-box__prefix {
+  font-weight: 300;
+  font-size: 14px;
+  color: #000;
+  white-space: nowrap;
+}
+
+.sfua-donate-form__input-box .sfua-donate-form__input-box__large {
+  font-size: 25px;
+  line-height: 32px;
+  border: none;
+}
+
+.sfua-donate-form__input-box input, textarea, select {
+  flex-grow: 1;
+  background: #fff;
+  border: none !important;
+  outline: none;
+  padding: 0.5rem;
+  width: 100%;
+  font-family: "Raleway", sans-serif;
+}
+
+.sfua-donate-form__input-box select {
+  padding-left: 0;
+}
+
+.sfua-donate-form__input-box input::placeholder, textarea::placeholder {
+  color: #999;
+}
+
+.sfua-donate-form__input-box:focus-within {
+  border: 1px solid #0d5fb5;
+}
+
+.sfua-donate-form__submit {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.sfua-donate-form__submit input {
+  background-color: #0d5fb5;
+  color: white;
+  display: block;
+  padding: 15px;
+  border: 1px solid #0d5fb5;
+  outline: none;
+  margin: auto;
+}
+
+.sfua-donate-form__submit-alt input[type=submit] {
+  background-color: #0d5fb5;
+  color: white;
+  display: block;
+  padding: 15px;
+  border: 1px solid #0d5fb5;
+  outline: none;
+  margin-top: 10px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.sfua-donate-form__submit-alt input[type=submit]:disabled {
+  background-color: #c0deff;
+  border: 1px solid #c0deff;
+  cursor: auto;
+}
+
+.sfua-donate-form__amount-select {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.sfua-donate-form__add {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+.invoice-insights__payments-banner {
+  padding: 8px 16px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 4px;
+}
+
+.wv-icon--payment-method--bank-payment {
+  background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/bank-payment.svg);
+  border: 1px solid #dcdfe0;
+}
+
+.wv-icon--payment-method--cc-amex {
+  background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/cc-amex.svg);
+  border: 1px solid #dcdfe0;
+}
+
+.wv-icon--payment-method--cc-mastercard {
+  background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/cc-mastercard.svg);
+  border: 1px solid #dcdfe0;
+  background-color: #fff;
+}
+
+.wv-icon--payment-method--cc-visa {
+  background-image: url(https://dmrokfxvkn5v8.cloudfront.net/20.14.0/images/icons-payment-methods/cc-visa.svg);
+  border: 1px solid #dcdfe0;
+}
+
+.wv-icon--payment-method--small {
+  height: 26px;
+  width: 40px;
+  background-size: 40px 26px;
+  border-radius: 3px;
+  margin: 0 1px;
+}
+
+/* Progress bar */
+.sfua-widget-progress-container {
+  margin: 0 auto;
+  /* width: 100%; */
+  background-color: #FFF;
+  padding: 2.5rem;
+  color: #000;
+}
+.sfua-widget-progress-container > h2 {
+  font-size: 2.3rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 2.7rem;
+  margin: 0;
+  text-align: left;
+}
+
+.sfua-widget-header-goal {
+  font-size: 4rem;
+  font-weight: 600;
+  line-height: 4.7rem;
+}
+
+
+/* background: */
+progress::-webkit-progress-bar {background-color: #fff5c4; width: 100%;}
+progress {background-color: #fff5c4;}
+
+/* value: */
+progress::-webkit-progress-value {background-color: #FFD500 !important;}
+progress::-moz-progress-bar {background-color: #FFD500 !important;}
+progress {color: #FFD500;}
+
+.sfua-widget-progress-container > progress {
+  width: 100%;
+  height: 8px;
+}
+.sfua-widget-progress-container div {
+  display: flex;
+}
+.sfua-widget-progress-container p {
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 1.2rem;
+}
+.sfua-widget-progress-container div p:first-child {
+  text-align: left;
+  margin-right: auto;
+  font-size: 12px;
+  line-height: 14px;
+}
+.sfua-widget-progress-container div p:last-child {
+  text-align: right;
+  font-size: 12px;
+  line-height: 14px;
+}
+.sfua-widget-progress-container strong {
+  font-size: 20px;
+  line-height: 24.5px;
+  font-weight: 600;
+}
+
+/* Amount selector */
+.sfua-donate-subheader h3 {
+  color: #000;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+
+.sfua-donate-amount-selector {
+  width: 100%;
+}
+.sfua-donate-amount-selector button {
+  background-color: white;
+  border: 1px solid #005BBB;
+  color: #005BBB;
+  padding: 26px 10px;
+  cursor: pointer;
+  float: left;
+  font-size: 1.2rem;
+  font-weight: 700;
+  width: 25%;
+}
+
+.sfua-donate-amount-selector button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.sfua-donate-amount-selector:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.sfua-donate-amount-selector button:hover {
+  background-color: #005BBB;
+  color: white;
+}

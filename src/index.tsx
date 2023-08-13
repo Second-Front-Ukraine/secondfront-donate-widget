@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import WidgetTorMarathon from './WidgetTorMarathon';
+import WidgetRunForUkraineMMXXIII from './WidgetRunForUkraineMMXXIII';
+import WidgetRunForUkraineRunReg from './WidgetRunForUkraineRunReg';
 import reportWebVitals from './reportWebVitals';
 
 if (process.env.REACT_APP_BUILD_TARGET === 'WidgetTorMarathon') {
@@ -12,6 +14,30 @@ if (process.env.REACT_APP_BUILD_TARGET === 'WidgetTorMarathon') {
     ReactDOM.createRoot(div).render(
       <React.StrictMode>
         <WidgetTorMarathon 
+          campaign={div.dataset.campaign || ''}
+          targetCollections={+(div.dataset.targetCollections || "0")} />
+      </React.StrictMode>
+    );
+  });
+} else if (process.env.REACT_APP_BUILD_TARGET === 'WidgetRunForUkraineMMXXIII') {
+  const widgetDivs = document.querySelectorAll('.secondfront-donate-widget') as NodeListOf<HTMLElement>;
+
+  widgetDivs.forEach(div => {
+    ReactDOM.createRoot(div).render(
+      <React.StrictMode>
+        <WidgetRunForUkraineMMXXIII 
+          campaign={div.dataset.campaign || ''}
+          targetCollections={+(div.dataset.targetCollections || "0")} />
+      </React.StrictMode>
+    );
+  });
+} else if (process.env.REACT_APP_BUILD_TARGET === 'WidgetRunForUkraineRunReg') {
+  const widgetDivs = document.querySelectorAll('.runforukraine-register-widget') as NodeListOf<HTMLElement>;
+
+  widgetDivs.forEach(div => {
+    ReactDOM.createRoot(div).render(
+      <React.StrictMode>
+        <WidgetRunForUkraineRunReg 
           campaign={div.dataset.campaign || ''}
           targetCollections={+(div.dataset.targetCollections || "0")} />
       </React.StrictMode>
