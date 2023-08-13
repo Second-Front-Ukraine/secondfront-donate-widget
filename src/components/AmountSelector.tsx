@@ -3,12 +3,13 @@ import React from 'react';
 
 export interface AmountSelectorProps {
     onSelect: (amount: number) => void;
+    promptText?: string;
 }
 
 export function StackedBoxAmountSelector(props: AmountSelectorProps) {
     return (
         <div className="sfua-donate-subheader">
-            <h3>Select amount to donate</h3>
+            <h3>{props.promptText || "Select amount to donate"}</h3>
             <div className="sfua-donate-amount-selector">
                 <button onClick={() => props.onSelect(25.00)}>$25</button>
                 <button onClick={() => props.onSelect(50.00)}>$50</button>
