@@ -5620,7 +5620,8 @@ function DonateForm(props) {
       amount: parseInt((Number(amount) * 100).toString()),
       email: email,
       name: fullName,
-      comment: memo
+      comment: memo,
+      referrer: window.location.href
     };
 
     _axiosInstances.wave.post("/tab", inputData).then(function (result) {
@@ -6488,7 +6489,8 @@ function RegisterForm(props) {
       products: (_a = {}, _a[REGISTRATION_PRODUCT_ID] = {
         'quantity': 1,
         'unitPrice': parseInt((Number(amount) * 100).toString())
-      }, _a)
+      }, _a),
+      referrer: window.location.href
     }; // https://stackoverflow.com/a/39387533
 
     var windowReference = window.open("", "", "width=1024, height=768");

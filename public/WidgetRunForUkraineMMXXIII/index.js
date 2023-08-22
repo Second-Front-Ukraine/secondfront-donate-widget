@@ -5552,490 +5552,7 @@ function StackedTextAmountSelector(props) {
     })
   }));
 }
-},{"react/jsx-runtime":"plwR","react":"n8MK"}],"eJav":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.CITIES = void 0;
-
-var _jsxRuntime = require("react/jsx-runtime");
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _axiosInstances = require("../axiosInstances");
-
-var _AmountSelector = require("./AmountSelector");
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
-};
-
-var CITIES = Object.freeze({
-  TORONTO: {
-    code: 'TORONTO',
-    name: 'Toronto, Canada',
-    country: 'CA',
-    province: 'CA-ON'
-  },
-  OTTAWA: {
-    code: 'OTTAWA',
-    name: 'Ottawa, Canada',
-    country: 'CA',
-    province: 'CA-ON'
-  },
-  VANCOUVER: {
-    code: 'VANCOUVER',
-    name: 'Vancouver, Canada',
-    country: 'CA',
-    province: 'CA-BC'
-  },
-  MONTREAL: {
-    code: 'MONTREAL',
-    name: 'Montreal, Canada',
-    country: 'CA',
-    province: 'CA-QC'
-  },
-  LONDON: {
-    code: 'LONDON',
-    name: 'London, United Kingdom',
-    country: 'GB',
-    province: 'GB-LND'
-  },
-  TELAVIV: {
-    code: 'TELAVIV',
-    name: 'Tel-Aviv, Israel',
-    country: 'IL',
-    province: 'IL-TA'
-  }
-});
-exports.CITIES = CITIES;
-var REGISTRATION_PRODUCT_ID = "QnVzaW5lc3M6YWU4YTgxYjYtZWI4OS00MDRhLWExNzgtYzJmYmM4OTc2ODIzO1Byb2R1Y3Q6ODIxNjg1MDQ=";
-
-function RegisterForm(props) {
-  var _a = (0, _react.useState)("20"),
-      amount = _a[0],
-      setAmount = _a[1];
-
-  var _b = (0, _react.useState)(""),
-      email = _b[0],
-      setEmail = _b[1];
-
-  var _c = (0, _react.useState)(""),
-      fullName = _c[0],
-      setFullname = _c[1];
-
-  var _d = (0, _react.useState)(""),
-      memo = _d[0],
-      setMemo = _d[1];
-
-  var _e = (0, _react.useState)(""),
-      addressCity = _e[0],
-      setAddressCity = _e[1];
-
-  var _f = (0, _react.useState)(false),
-      addNote = _f[0],
-      setAddNote = _f[1];
-
-  var handleSubmit = function handleSubmit(event) {
-    var _a;
-
-    event.preventDefault();
-    var city = CITIES[addressCity];
-    var inputData = {
-      campaign_slug: props.campaign,
-      // amount: parseInt((Number(amount) * 100).toString()),
-      email: email,
-      name: fullName,
-      comment: memo,
-      shipping_details: {
-        'addressLine1': '',
-        'addressLine2': '',
-        'city': city.name,
-        'provinceCode': '',
-        'countryCode': city.country,
-        'postalCode': '',
-        'phone': ''
-      },
-      products: (_a = {}, _a[REGISTRATION_PRODUCT_ID] = {
-        'quantity': 1,
-        'unitPrice': parseInt((Number(amount) * 100).toString())
-      }, _a)
-    }; // https://stackoverflow.com/a/39387533
-
-    var windowReference = window.open("", "", "width=1024, height=768");
-
-    _axiosInstances.wave.post("/tab", inputData).then(function (result) {
-      props.onTabCreated(result.data);
-
-      if (!!result.data.url && windowReference) {
-        windowReference.location = result.data.url;
-      }
-    });
-  };
-
-  var handleAddNote = function handleAddNote(e) {
-    e.preventDefault();
-    setAddNote(true);
-  };
-
-  var isValid = !!amount && parseInt(amount) >= 20 && email && fullName && addressCity;
-  return (0, _jsxRuntime.jsxs)("div", __assign({
-    className: "sfua-donate-form"
-  }, {
-    children: [props.useBoxSelector ? (0, _jsxRuntime.jsx)(_AmountSelector.StackedBoxAmountSelector, {
-      onSelect: function onSelect(amount) {
-        return setAmount(amount.toString());
-      },
-      promptText: 'Select your registration gift. Minimum donation to register is $20'
-    }) : (0, _jsxRuntime.jsx)(_AmountSelector.StackedTextAmountSelector, {
-      onSelect: function onSelect(amount) {
-        return setAmount(amount.toString());
-      }
-    }), (0, _jsxRuntime.jsxs)("form", __assign({
-      onSubmit: handleSubmit
-    }, {
-      children: [(0, _jsxRuntime.jsxs)("div", __assign({
-        className: "sfua-donate-form__input-box"
-      }, {
-        children: [(0, _jsxRuntime.jsx)("span", __assign({
-          className: "sfua-donate-form__input-box__prefix"
-        }, {
-          children: "CAD"
-        })), (0, _jsxRuntime.jsx)("input", {
-          type: "number",
-          name: "amount",
-          value: amount,
-          min: 20,
-          className: 'sfua-donate-form__input-box__large',
-          onChange: function onChange(e) {
-            return setAmount(e.target.value);
-          },
-          placeholder: "Enter amount"
-        })]
-      })), props.enterRaffle ? (0, _jsxRuntime.jsxs)("p", __assign({
-        className: "sfua-donate-enter-raffle"
-      }, {
-        children: ["\uD83C\uDDFA\uD83C\uDDE6 Please add your email address for a chance to ", (0, _jsxRuntime.jsx)("strong", {
-          children: "win the National Flag of Ukraine signed by Valerii Zaluzhnyi"
-        }), ", Commander-in-Chief of the Armed Forces of Ukraine."]
-      })) : null, (0, _jsxRuntime.jsx)("div", __assign({
-        className: "sfua-donate-form__input-box"
-      }, {
-        children: (0, _jsxRuntime.jsx)("input", {
-          type: "text",
-          name: "email",
-          value: email,
-          placeholder: "Email",
-          onChange: function onChange(e) {
-            return setEmail(e.target.value);
-          }
-        })
-      })), (0, _jsxRuntime.jsx)("div", __assign({
-        className: "sfua-donate-form__input-box"
-      }, {
-        children: (0, _jsxRuntime.jsx)("input", {
-          type: "text",
-          name: "fullName",
-          value: fullName,
-          placeholder: "Full name",
-          onChange: function onChange(e) {
-            return setFullname(e.target.value);
-          }
-        })
-      })), (0, _jsxRuntime.jsxs)("div", __assign({
-        className: "sfua-donate-form__input-box"
-      }, {
-        children: [(0, _jsxRuntime.jsx)("label", __assign({
-          className: 'sfua-donate-form__input-box__prefix',
-          htmlFor: "register-address-city"
-        }, {
-          children: "City: "
-        })), (0, _jsxRuntime.jsxs)("select", __assign({
-          className: "custom-select",
-          id: "register-address-city",
-          value: addressCity,
-          placeholder: "City",
-          onChange: function onChange(e) {
-            return setAddressCity(e.target.value);
-          }
-        }, {
-          children: [(0, _jsxRuntime.jsx)("option", {
-            selected: !addressCity,
-            value: ''
-          }), Object.entries(CITIES).map(function (_a, i) {
-            var code = _a[0],
-                city = _a[1];
-            return (0, _jsxRuntime.jsx)("option", __assign({
-              selected: addressCity === code,
-              value: code
-            }, {
-              children: city.name
-            }));
-          })]
-        }))]
-      })), addNote ? (0, _jsxRuntime.jsx)("div", __assign({
-        className: "sfua-donate-form__input-box"
-      }, {
-        children: (0, _jsxRuntime.jsx)("textarea", {
-          name: "memo",
-          value: memo,
-          placeholder: "Note (optional)",
-          rows: 7,
-          onChange: function onChange(e) {
-            return setMemo(e.target.value);
-          }
-        })
-      })) : null, !addNote ? (0, _jsxRuntime.jsx)("div", __assign({
-        className: 'sfua-donate-form__add'
-      }, {
-        children: (0, _jsxRuntime.jsx)("a", __assign({
-          href: "#",
-          onClick: handleAddNote
-        }, {
-          children: "Add a note"
-        }))
-      })) : null, (0, _jsxRuntime.jsxs)("div", {
-        children: [(0, _jsxRuntime.jsxs)("div", __assign({
-          className: "invoice-insights__payments-banner"
-        }, {
-          children: [(0, _jsxRuntime.jsx)("div", {
-            className: "icon-override wv-icon--payment-method--small wv-icon--payment-method--bank-payment"
-          }), (0, _jsxRuntime.jsx)("div", {
-            className: "icon-override wv-icon--payment-method--small wv-icon--payment-method--cc-amex"
-          }), (0, _jsxRuntime.jsx)("div", {
-            className: "icon-override wv-icon--payment-method--small wv-icon--payment-method--cc-mastercard"
-          }), (0, _jsxRuntime.jsx)("div", {
-            className: "icon-override wv-icon--payment-method--small wv-icon--payment-method--cc-visa"
-          })]
-        })), (0, _jsxRuntime.jsx)("div", __assign({
-          className: 'sfua-donate-form__submit-alt'
-        }, {
-          children: isValid ? (0, _jsxRuntime.jsx)("input", {
-            type: "submit",
-            value: "Register"
-          }) : (0, _jsxRuntime.jsx)("input", {
-            type: "submit",
-            value: "Register",
-            disabled: true
-          })
-        }))]
-      })]
-    }))]
-  }));
-}
-
-var _default = RegisterForm;
-exports.default = _default;
-},{"react/jsx-runtime":"plwR","react":"n8MK","../axiosInstances":"EICV","./AmountSelector":"J9nC"}],"NHn6":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _jsxRuntime = require("react/jsx-runtime");
-
-var _react = _interopRequireWildcard(require("react"));
-
-require("./widgetRunForUkraineRunReg.css");
-
-var _RegisterForm = _interopRequireDefault(require("./components/RegisterForm"));
-
-var _axiosInstances = require("./axiosInstances");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
-};
-
-function WidgetRunForUkraineRunReg(props) {
-  var _a = (0, _react.useState)({
-    slug: props.campaign,
-    collected: 0
-  }),
-      campaignData = _a[0],
-      setCampaignData = _a[1];
-
-  var _b = (0, _react.useState)(undefined),
-      tab = _b[0],
-      setTab = _b[1];
-
-  var breakPoll = (0, _react.useRef)(false);
-  var today = new Date().toISOString().slice(0, 10);
-
-  var openPaymentForm = function openPaymentForm(tabToOpen) {
-    window.open(tabToOpen.url, "", "width=1024, height=768");
-  };
-
-  var pollForPayment = function pollForPayment(tabAsArgument, counter) {
-    if (counter === void 0) {
-      counter = 1;
-    }
-
-    _axiosInstances.wave.get("/tab/".concat(tabAsArgument === null || tabAsArgument === void 0 ? void 0 : tabAsArgument.tab_id)).then(function (result) {
-      if (!result.data.paid && counter <= 120) {
-        if (!breakPoll.current) {
-          setTimeout(function () {
-            return pollForPayment(tabAsArgument, counter + 1);
-          }, 5000);
-        } else {
-          breakPoll.current = false;
-        }
-      } else {
-        setTab(result.data);
-        fetchCampaign();
-      }
-    });
-  };
-
-  var onTabCreated = function onTabCreated(tab) {
-    setTab(tab);
-    localStorage.setItem("tab-in-progress-".concat(props.campaign, "-").concat(today), JSON.stringify(tab));
-    openPaymentForm(tab);
-    pollForPayment(tab);
-  };
-
-  var handleDonationCancel = function handleDonationCancel(e) {
-    e.preventDefault();
-    setTab(undefined);
-    breakPoll.current = true;
-  };
-
-  var fetchCampaign = function fetchCampaign() {
-    _axiosInstances.wave.get("/campaign/".concat(props.campaign)).then(function (result) {
-      setCampaignData(result.data.campaign);
-    });
-  };
-
-  (0, _react.useEffect)(function () {
-    // Load Campaign details
-    fetchCampaign(); // Check local storage for existing donation Tab
-
-    var items = localStorage.getItem("tab-in-progress-".concat(props.campaign, "-").concat(today));
-
-    if (items) {
-      var parsedTab = JSON.parse(items);
-      setTab(parsedTab);
-      pollForPayment(parsedTab);
-    }
-  }, []);
-
-  var handleClickDonation = function handleClickDonation(e) {
-    e.preventDefault();
-
-    if (tab) {
-      openPaymentForm(tab);
-    }
-  };
-
-  return (0, _jsxRuntime.jsx)("div", __assign({
-    className: "App"
-  }, {
-    children: (0, _jsxRuntime.jsxs)("div", __assign({
-      className: "sfua-widget"
-    }, {
-      children: [(0, _jsxRuntime.jsxs)("div", __assign({
-        className: "sfua-widget-progress-container"
-      }, {
-        children: [(0, _jsxRuntime.jsxs)("h2", {
-          children: ["Goal ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("span", __assign({
-            className: "sfua-widget-header-goal"
-          }, {
-            children: "CAD $69,920"
-          }))]
-        }), (0, _jsxRuntime.jsxs)("div", {
-          children: [(0, _jsxRuntime.jsxs)("p", {
-            children: ["Raised ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsxs)("strong", {
-              children: ["$", (campaignData.collected / 100).toLocaleString('en-CA')]
-            })]
-          }), (0, _jsxRuntime.jsxs)("p", {
-            children: ["Goal ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsxs)("strong", {
-              children: ["$", props.targetCollections.toLocaleString('en-CA')]
-            })]
-          })]
-        }), (0, _jsxRuntime.jsx)("progress", {
-          max: props.targetCollections,
-          value: campaignData.collected / 100
-        })]
-      })), tab ? tab.paid ? (0, _jsxRuntime.jsx)("div", __assign({
-        className: "sfua-widget-tab-container"
-      }, {
-        children: (0, _jsxRuntime.jsxs)("p", {
-          children: ["Thank you for supporting Ukraine! ", (0, _jsxRuntime.jsx)("br", {}), "\uD83D\uDC99\xA0\uD83D\uDC9B ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
-            href: "#",
-            onClick: handleDonationCancel
-          }, {
-            children: "Click here to make another contribution"
-          }))]
-        })
-      })) : (0, _jsxRuntime.jsx)("div", __assign({
-        className: "sfua-widget-tab-container"
-      }, {
-        children: (0, _jsxRuntime.jsxs)("p", {
-          children: ["Processing ", (0, _jsxRuntime.jsx)("a", __assign({
-            href: "#",
-            onClick: handleClickDonation
-          }, {
-            children: "your donation"
-          })), " in another window. ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
-            href: "#",
-            onClick: handleDonationCancel
-          }, {
-            children: "Click here to cancel"
-          })), "."]
-        })
-      })) : (0, _jsxRuntime.jsx)("div", __assign({
-        className: "sfua-widget-tab-container"
-      }, {
-        children: (0, _jsxRuntime.jsx)(_RegisterForm.default, {
-          campaign: props.campaign,
-          onTabCreated: onTabCreated,
-          useBoxSelector: true
-        })
-      }))]
-    }))
-  }));
-}
-
-var _default = WidgetRunForUkraineRunReg;
-exports.default = _default;
-},{"react/jsx-runtime":"plwR","react":"n8MK","./widgetRunForUkraineRunReg.css":"vKFU","./components/RegisterForm":"eJav","./axiosInstances":"EICV"}],"ifG6":[function(require,module,exports) {
+},{"react/jsx-runtime":"plwR","react":"n8MK"}],"ifG6":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6103,7 +5620,8 @@ function DonateForm(props) {
       amount: parseInt((Number(amount) * 100).toString()),
       email: email,
       name: fullName,
-      comment: memo
+      comment: memo,
+      referrer: window.location.href
     };
 
     _axiosInstances.wave.post("/tab", inputData).then(function (result) {
@@ -6236,7 +5754,239 @@ function DonateForm(props) {
 
 var _default = DonateForm;
 exports.default = _default;
-},{"react/jsx-runtime":"plwR","react":"n8MK","../axiosInstances":"EICV","./AmountSelector":"J9nC"}],"BVLj":[function(require,module,exports) {
+},{"react/jsx-runtime":"plwR","react":"n8MK","../axiosInstances":"EICV","./AmountSelector":"J9nC"}],"wQMV":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _DonateForm = _interopRequireDefault(require("./DonateForm"));
+
+var _axiosInstances = require("../axiosInstances");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var __assign = void 0 && (void 0).__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+function Widget(props) {
+  var _a = (0, _react.useState)({
+    slug: props.campaign,
+    collected: 0
+  }),
+      campaignData = _a[0],
+      setCampaignData = _a[1];
+
+  var _b = (0, _react.useState)(undefined),
+      tab = _b[0],
+      setTab = _b[1];
+
+  var breakPoll = (0, _react.useRef)(false);
+  var today = new Date().toISOString().slice(0, 10);
+
+  var openPaymentForm = function openPaymentForm(tabToOpen) {
+    window.open(tabToOpen.url, "", "width=1024, height=768");
+  };
+
+  var pollForPayment = function pollForPayment(tabAsArgument, counter) {
+    if (counter === void 0) {
+      counter = 1;
+    }
+
+    _axiosInstances.wave.get("/tab/".concat(tabAsArgument === null || tabAsArgument === void 0 ? void 0 : tabAsArgument.tab_id)).then(function (result) {
+      if (!result.data.paid && counter <= 120) {
+        if (!breakPoll.current) {
+          setTimeout(function () {
+            return pollForPayment(tabAsArgument, counter + 1);
+          }, 5000);
+        } else {
+          breakPoll.current = false;
+        }
+      } else {
+        setTab(result.data);
+
+        if (props.showCollections) {
+          fetchCampaign();
+        }
+      }
+    });
+  };
+
+  var onTabCreated = function onTabCreated(tab) {
+    setTab(tab);
+    localStorage.setItem("tab-in-progress-".concat(props.campaign, "-").concat(today), JSON.stringify(tab));
+    openPaymentForm(tab);
+    pollForPayment(tab);
+  };
+
+  var handleDonationCancel = function handleDonationCancel(e) {
+    e.preventDefault();
+    setTab(undefined);
+    breakPoll.current = true;
+  };
+
+  var fetchCampaign = function fetchCampaign() {
+    _axiosInstances.wave.get("/campaign/".concat(props.campaign)).then(function (result) {
+      setCampaignData(result.data.campaign);
+    });
+  };
+
+  (0, _react.useEffect)(function () {
+    // Load Campaign details
+    if (props.showCollections) {
+      fetchCampaign();
+    } // Check local storage for existing donation Tab
+
+
+    var items = localStorage.getItem("tab-in-progress-".concat(props.campaign, "-").concat(today));
+
+    if (items) {
+      var parsedTab = JSON.parse(items);
+      setTab(parsedTab);
+      pollForPayment(parsedTab);
+    }
+  }, []);
+
+  var handleClickDonation = function handleClickDonation(e) {
+    e.preventDefault();
+
+    if (tab) {
+      openPaymentForm(tab);
+    }
+  };
+
+  return (0, _jsxRuntime.jsxs)("div", __assign({
+    className: "sfua-widget"
+  }, {
+    children: [props.showCollections && !props.targetCollections ? (0, _jsxRuntime.jsxs)("p", {
+      children: ["Collected to date: ", (0, _jsxRuntime.jsxs)("strong", {
+        children: ["$", campaignData.collected / 100]
+      })]
+    }) : null, props.targetCollections ? (0, _jsxRuntime.jsxs)("div", __assign({
+      className: "sfua-widget-progress-container"
+    }, {
+      children: [(0, _jsxRuntime.jsxs)("div", {
+        children: [(0, _jsxRuntime.jsxs)("p", {
+          children: ["Raised: ", (0, _jsxRuntime.jsxs)("strong", {
+            children: ["$", campaignData.collected / 100]
+          })]
+        }), (0, _jsxRuntime.jsxs)("p", {
+          children: ["Goal: ", (0, _jsxRuntime.jsxs)("strong", {
+            children: ["$", props.targetCollections]
+          })]
+        })]
+      }), (0, _jsxRuntime.jsx)("progress", {
+        max: props.targetCollections,
+        value: campaignData.collected / 100
+      })]
+    })) : null, tab ? tab.paid ? (0, _jsxRuntime.jsx)("div", {
+      children: (0, _jsxRuntime.jsxs)("p", {
+        children: ["Thank you for supporting Ukraine! ", (0, _jsxRuntime.jsx)("br", {}), "\uD83D\uDC99\xA0\uD83D\uDC9B ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
+          href: "#",
+          onClick: handleDonationCancel
+        }, {
+          children: "Click here to make another contribution"
+        }))]
+      })
+    }) : (0, _jsxRuntime.jsx)("div", {
+      children: (0, _jsxRuntime.jsxs)("p", {
+        children: ["Processing ", (0, _jsxRuntime.jsx)("a", __assign({
+          href: "#",
+          onClick: handleClickDonation
+        }, {
+          children: "your donation"
+        })), " in another window. ", (0, _jsxRuntime.jsx)("br", {}), (0, _jsxRuntime.jsx)("a", __assign({
+          href: "#",
+          onClick: handleDonationCancel
+        }, {
+          children: "Click here to cancel"
+        })), "."]
+      })
+    }) : (0, _jsxRuntime.jsx)("div", {
+      children: (0, _jsxRuntime.jsx)(_DonateForm.default, {
+        campaign: props.campaign,
+        onTabCreated: onTabCreated,
+        enterRaffle: props.enterRaffle
+      })
+    })]
+  }));
+}
+
+var _default = Widget;
+exports.default = _default;
+},{"react/jsx-runtime":"plwR","react":"n8MK","./DonateForm":"ifG6","../axiosInstances":"EICV"}],"NHn6":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+var _react = _interopRequireDefault(require("react"));
+
+require("./App.css");
+
+var _Widget = _interopRequireDefault(require("./components/Widget"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __assign = void 0 && (void 0).__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+function App(props) {
+  return (0, _jsxRuntime.jsx)("div", __assign({
+    className: "App"
+  }, {
+    children: (0, _jsxRuntime.jsx)(_Widget.default, {
+      campaign: props.campaign,
+      showCollections: !props.hideCollections,
+      targetCollections: props.targetCollections,
+      enterRaffle: props.enterRaffle
+    })
+  }));
+}
+
+var _default = App;
+exports.default = _default;
+},{"react/jsx-runtime":"plwR","react":"n8MK","./App.css":"vKFU","./components/Widget":"wQMV"}],"BVLj":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6614,7 +6364,300 @@ function WidgetRunForUkraineMMXXIII(props) {
 
 var _default = WidgetRunForUkraineMMXXIII;
 exports.default = _default;
-},{"react/jsx-runtime":"plwR","react":"n8MK","./widgetRunForUkraineMMXXIII.css":"vKFU","./components/DonateForm":"ifG6","./axiosInstances":"EICV"}],"qCMN":[function(require,module,exports) {
+},{"react/jsx-runtime":"plwR","react":"n8MK","./widgetRunForUkraineMMXXIII.css":"vKFU","./components/DonateForm":"ifG6","./axiosInstances":"EICV"}],"eJav":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.CITIES = void 0;
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axiosInstances = require("../axiosInstances");
+
+var _AmountSelector = require("./AmountSelector");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var __assign = void 0 && (void 0).__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+var CITIES = Object.freeze({
+  TORONTO: {
+    code: 'TORONTO',
+    name: 'Toronto, Canada',
+    country: 'CA',
+    province: 'CA-ON'
+  },
+  VANCOUVER: {
+    code: 'VANCOUVER',
+    name: 'Vancouver, Canada',
+    country: 'CA',
+    province: 'CA-BC'
+  },
+  MONTREAL: {
+    code: 'MONTREAL',
+    name: 'Montreal, Canada',
+    country: 'CA',
+    province: 'CA-QC'
+  },
+  LONDON: {
+    code: 'LONDON',
+    name: 'London, United Kingdom',
+    country: 'GB',
+    province: 'GB-LND'
+  },
+  TELAVIV: {
+    code: 'TELAVIV',
+    name: 'Tel-Aviv, Israel',
+    country: 'IL',
+    province: 'IL-TA'
+  },
+  CALPE: {
+    code: 'CALPE',
+    name: 'Calpe, Spain',
+    country: 'ES',
+    province: 'ES-VC'
+  }
+});
+exports.CITIES = CITIES;
+var REGISTRATION_PRODUCT_ID = "QnVzaW5lc3M6YWU4YTgxYjYtZWI4OS00MDRhLWExNzgtYzJmYmM4OTc2ODIzO1Byb2R1Y3Q6ODIxNjg1MDQ=";
+
+function RegisterForm(props) {
+  var _a = (0, _react.useState)("20"),
+      amount = _a[0],
+      setAmount = _a[1];
+
+  var _b = (0, _react.useState)(""),
+      email = _b[0],
+      setEmail = _b[1];
+
+  var _c = (0, _react.useState)(""),
+      fullName = _c[0],
+      setFullname = _c[1];
+
+  var _d = (0, _react.useState)(""),
+      memo = _d[0],
+      setMemo = _d[1];
+
+  var _e = (0, _react.useState)(""),
+      addressCity = _e[0],
+      setAddressCity = _e[1];
+
+  var _f = (0, _react.useState)(false),
+      addNote = _f[0],
+      setAddNote = _f[1];
+
+  var handleSubmit = function handleSubmit(event) {
+    var _a;
+
+    event.preventDefault();
+    var city = CITIES[addressCity];
+    var inputData = {
+      campaign_slug: props.campaign,
+      // amount: parseInt((Number(amount) * 100).toString()),
+      email: email,
+      name: fullName,
+      comment: memo,
+      shipping_details: {
+        'addressLine1': '',
+        'addressLine2': '',
+        'city': city.name,
+        'provinceCode': '',
+        'countryCode': city.country,
+        'postalCode': '',
+        'phone': ''
+      },
+      products: (_a = {}, _a[REGISTRATION_PRODUCT_ID] = {
+        'quantity': 1,
+        'unitPrice': parseInt((Number(amount) * 100).toString())
+      }, _a),
+      referrer: window.location.href
+    }; // https://stackoverflow.com/a/39387533
+
+    var windowReference = window.open("", "", "width=1024, height=768");
+
+    _axiosInstances.wave.post("/tab", inputData).then(function (result) {
+      props.onTabCreated(result.data);
+
+      if (!!result.data.url && windowReference) {
+        windowReference.location = result.data.url;
+      }
+    });
+  };
+
+  var handleAddNote = function handleAddNote(e) {
+    e.preventDefault();
+    setAddNote(true);
+  };
+
+  var isValid = !!amount && parseInt(amount) >= 20 && email && fullName && addressCity;
+  return (0, _jsxRuntime.jsxs)("div", __assign({
+    className: "sfua-donate-form"
+  }, {
+    children: [props.useBoxSelector ? (0, _jsxRuntime.jsx)(_AmountSelector.StackedBoxAmountSelector, {
+      onSelect: function onSelect(amount) {
+        return setAmount(amount.toString());
+      },
+      promptText: 'Select your registration gift. Minimum donation to register is $20'
+    }) : (0, _jsxRuntime.jsx)(_AmountSelector.StackedTextAmountSelector, {
+      onSelect: function onSelect(amount) {
+        return setAmount(amount.toString());
+      }
+    }), (0, _jsxRuntime.jsxs)("form", __assign({
+      onSubmit: handleSubmit
+    }, {
+      children: [(0, _jsxRuntime.jsxs)("div", __assign({
+        className: "sfua-donate-form__input-box"
+      }, {
+        children: [(0, _jsxRuntime.jsx)("span", __assign({
+          className: "sfua-donate-form__input-box__prefix"
+        }, {
+          children: "CAD"
+        })), (0, _jsxRuntime.jsx)("input", {
+          type: "number",
+          name: "amount",
+          value: amount,
+          min: 20,
+          className: 'sfua-donate-form__input-box__large',
+          onChange: function onChange(e) {
+            return setAmount(e.target.value);
+          },
+          placeholder: "Enter amount"
+        })]
+      })), props.enterRaffle ? (0, _jsxRuntime.jsxs)("p", __assign({
+        className: "sfua-donate-enter-raffle"
+      }, {
+        children: ["\uD83C\uDDFA\uD83C\uDDE6 Please add your email address for a chance to ", (0, _jsxRuntime.jsx)("strong", {
+          children: "win the National Flag of Ukraine signed by Valerii Zaluzhnyi"
+        }), ", Commander-in-Chief of the Armed Forces of Ukraine."]
+      })) : null, (0, _jsxRuntime.jsx)("div", __assign({
+        className: "sfua-donate-form__input-box"
+      }, {
+        children: (0, _jsxRuntime.jsx)("input", {
+          type: "text",
+          name: "email",
+          value: email,
+          placeholder: "Email",
+          onChange: function onChange(e) {
+            return setEmail(e.target.value);
+          }
+        })
+      })), (0, _jsxRuntime.jsx)("div", __assign({
+        className: "sfua-donate-form__input-box"
+      }, {
+        children: (0, _jsxRuntime.jsx)("input", {
+          type: "text",
+          name: "fullName",
+          value: fullName,
+          placeholder: "Full name",
+          onChange: function onChange(e) {
+            return setFullname(e.target.value);
+          }
+        })
+      })), (0, _jsxRuntime.jsxs)("div", __assign({
+        className: "sfua-donate-form__input-box"
+      }, {
+        children: [(0, _jsxRuntime.jsx)("label", __assign({
+          className: 'sfua-donate-form__input-box__prefix',
+          htmlFor: "register-address-city"
+        }, {
+          children: "City: "
+        })), (0, _jsxRuntime.jsxs)("select", __assign({
+          className: "custom-select",
+          id: "register-address-city",
+          value: addressCity,
+          placeholder: "City",
+          onChange: function onChange(e) {
+            return setAddressCity(e.target.value);
+          }
+        }, {
+          children: [(0, _jsxRuntime.jsx)("option", {
+            selected: !addressCity,
+            value: ''
+          }), Object.entries(CITIES).map(function (_a, i) {
+            var code = _a[0],
+                city = _a[1];
+            return (0, _jsxRuntime.jsx)("option", __assign({
+              selected: addressCity === code,
+              value: code
+            }, {
+              children: city.name
+            }));
+          })]
+        }))]
+      })), addNote ? (0, _jsxRuntime.jsx)("div", __assign({
+        className: "sfua-donate-form__input-box"
+      }, {
+        children: (0, _jsxRuntime.jsx)("textarea", {
+          name: "memo",
+          value: memo,
+          placeholder: "Note (optional)",
+          rows: 7,
+          onChange: function onChange(e) {
+            return setMemo(e.target.value);
+          }
+        })
+      })) : null, !addNote ? (0, _jsxRuntime.jsx)("div", __assign({
+        className: 'sfua-donate-form__add'
+      }, {
+        children: (0, _jsxRuntime.jsx)("a", __assign({
+          href: "#",
+          onClick: handleAddNote
+        }, {
+          children: "Add a note"
+        }))
+      })) : null, (0, _jsxRuntime.jsxs)("div", {
+        children: [(0, _jsxRuntime.jsxs)("div", __assign({
+          className: "invoice-insights__payments-banner"
+        }, {
+          children: [(0, _jsxRuntime.jsx)("div", {
+            className: "icon-override wv-icon--payment-method--small wv-icon--payment-method--bank-payment"
+          }), (0, _jsxRuntime.jsx)("div", {
+            className: "icon-override wv-icon--payment-method--small wv-icon--payment-method--cc-amex"
+          }), (0, _jsxRuntime.jsx)("div", {
+            className: "icon-override wv-icon--payment-method--small wv-icon--payment-method--cc-mastercard"
+          }), (0, _jsxRuntime.jsx)("div", {
+            className: "icon-override wv-icon--payment-method--small wv-icon--payment-method--cc-visa"
+          })]
+        })), (0, _jsxRuntime.jsx)("div", __assign({
+          className: 'sfua-donate-form__submit-alt'
+        }, {
+          children: isValid ? (0, _jsxRuntime.jsx)("input", {
+            type: "submit",
+            value: "Register"
+          }) : (0, _jsxRuntime.jsx)("input", {
+            type: "submit",
+            value: "Register",
+            disabled: true
+          })
+        }))]
+      })]
+    }))]
+  }));
+}
+
+var _default = RegisterForm;
+exports.default = _default;
+},{"react/jsx-runtime":"plwR","react":"n8MK","../axiosInstances":"EICV","./AmountSelector":"J9nC"}],"qCMN":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

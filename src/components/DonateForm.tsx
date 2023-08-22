@@ -26,6 +26,7 @@ function DonateForm(props: DonateFormProps) {
             email,
             name: fullName,
             comment: memo,
+            referrer: window.location.href,
         };
         wave.post("/tab", inputData).then((result) => {
             props.onTabCreated(result.data);

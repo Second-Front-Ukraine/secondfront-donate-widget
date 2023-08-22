@@ -80,7 +80,8 @@ function RegisterForm(props: RegisterFormProps) {
                 'quantity': 1,
                 'unitPrice': parseInt((Number(amount) * 100).toString()),
               },
-            }
+            },
+            referrer: window.location.href,
         };
         // https://stackoverflow.com/a/39387533
         var windowReference = window.open("", "", "width=1024, height=768");
