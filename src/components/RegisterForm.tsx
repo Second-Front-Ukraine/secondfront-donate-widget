@@ -9,12 +9,6 @@ export const CITIES = Object.freeze({
       country: 'CA',
       province: 'CA-ON',
     },
-    OTTAWA: {
-      code: 'OTTAWA',
-      name: 'Ottawa, Canada',
-      country: 'CA',
-      province: 'CA-ON',
-    },
     VANCOUVER: {
       code: 'VANCOUVER',
       name: 'Vancouver, Canada',
@@ -38,6 +32,12 @@ export const CITIES = Object.freeze({
       name: 'Tel-Aviv, Israel',
       country: 'IL',
       province: 'IL-TA'
+    },
+    CALPE: {
+      code: 'CALPE',
+      name: 'Calpe, Spain',
+      country: 'ES',
+      province: 'ES-VC',
     },
 });
 const REGISTRATION_PRODUCT_ID = "QnVzaW5lc3M6YWU4YTgxYjYtZWI4OS00MDRhLWExNzgtYzJmYmM4OTc2ODIzO1Byb2R1Y3Q6ODIxNjg1MDQ="
